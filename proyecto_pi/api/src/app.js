@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const getRouter = require("./routes/getRouter");
 const postRouter = require("./routes/postRouter.js");
-
+const API_URL = process.env.API_URL;
 require("./db.js");
 
 const server = express();
@@ -26,6 +26,9 @@ server.use((req, res, next) => {
   next();
 });
 
+server.get("/api-url", (req, res) => {
+  res.json({ API_URL });
+});
 server.use("/", getRouter); // Usa el enrutador GET
 server.use("/", postRouter); // Usa el enrutador POST
 

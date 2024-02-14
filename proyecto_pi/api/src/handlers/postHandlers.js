@@ -1,5 +1,7 @@
 const express = require("express");
-const { Dog, Temperament } = require("../db");
+const { Dog, Temperament} = require("../db");
+const UserBd = require("../controllers/UserBd")
+
 
 //? Esta ruta permite la creación de un nuevo perro.
 
@@ -37,7 +39,20 @@ const postCreatetemperament = (req, res) => {
       res.status(500).send("Error interno del servidor");
     });
 };
+
+
+const createUser= async (req, res) => {
+  const { id, name, email, password } = req.body;
+  try {
+    const response = await UserBd(id, name, email, password);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   postCreatedog,
   postCreatetemperament,
+  createUser
 };

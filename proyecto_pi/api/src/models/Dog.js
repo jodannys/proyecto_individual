@@ -21,9 +21,11 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     id: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.UUID,
       allowNull: false,
       primaryKey:true,
+      defaultValue:DataTypes.UUIDV4,
     },
   });
+
 };
