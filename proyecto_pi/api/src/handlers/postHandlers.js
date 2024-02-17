@@ -1,7 +1,8 @@
 const express = require("express");
-const { Dog, Temperament} = require("../db");
-const UserBd = require("../controllers/UserBd")
-
+const { Dog, Temperament, User } = require("../db");
+const UserBd = require("../controllers/UserBd");
+const loginUser = require("../controllers/LoginUser");
+const bcrypt = require("bcrypt");
 
 //? Esta ruta permite la creación de un nuevo perro.
 
@@ -39,20 +40,48 @@ const postCreatetemperament = (req, res) => {
       res.status(500).send("Error interno del servidor");
     });
 };
+//? Esta ruta permite la creación de un nuevo usuario.
 
-
-const createUser= async (req, res) => {
+const createUser = async (req, res) => {
   const { id, name, email, password } = req.body;
   try {
-    const response = await UserBd(id, name, email, password);
-    res.status(200).json(response);
+    // Generar el hash de la contraseña
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Crear el nuevo usuario en la base de datos con la contraseña encriptada
+    const newUser = await User.create({
+      id,
+      name,
+      email,
+      password: hashedPassword, // Almacenar la contraseña encriptada
+    });
+
+    res.status(200).json(newUser);
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+};
+
+//? Esta ruta permite el inicio de seccion.
+
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      // Si falta el correo electrónico o la contraseña en el cuerpo de la solicitud
+      throw new Error("Se requiere un correo electrónico y una contraseña.");
+    }
+
+    const user = await loginUser({ email, password });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
   }
 };
 
 module.exports = {
   postCreatedog,
   postCreatetemperament,
-  createUser
+  createUser,
+  login,
 };

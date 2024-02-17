@@ -1,0 +1,68 @@
+.boton-agregar-perroo {
+    height: 40px;
+    background-color: #6D8BE8;
+    color: white;
+    border: none;
+    width: 132px;
+    height: 29px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.tabs {
+    height: 50px;
+    padding-top: 15px;
+    padding-left: 154px;
+
+}
+
+.boton-agregar-temp {
+    height: 40px;
+    background-color: #6D8BE8;
+    color: white;
+    border: none;
+    width: 170px;
+    height: 32px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.boton-agregar {
+    height: 40px;
+    background-color: #6D8BE8;
+    color: white;
+    border: none;
+    width: 102px;
+    height: 29px;
+    margin-top: 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.agregarPerro {
+    height: 396px;
+    padding-left: 15%;
+}
+
+.container-amarilloo {
+    display: flex;
+    background-color: #FADE56;
+    height: 420px;
+    width: 730px;
+    border-radius: 4px;
+    margin-top: 8%;
+    margin-left: 22%;
+    align-items: baseline;
+    flex-direction: column;
+}
+
+.agregar-temperamento {
+    padding-left: 35%;
+    padding-top: 7%;
+}

@@ -5,6 +5,7 @@ const {
   getDogs,
   getSearch,
   getTemperamentos,
+  getUserByEmail,
 } = require("../handlers/getHandlers");
 const getRouter = express.Router();
 
@@ -19,5 +20,8 @@ getRouter.get("/search", getSearch);
 
 //? Obtener temperamentos
 getRouter.get("/temperamentos", getTemperamentos);
+
+//? Obtener el email y contraseña d eños usurios registrados 
+getRouter.get("/getUserByEmail", getUserByEmail);
 
 module.exports = getRouter;

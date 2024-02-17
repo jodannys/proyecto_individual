@@ -1,0 +1,65 @@
+.fondo-home {
+    display: flex;
+    height: 1440px;
+    width: 1290px;
+    margin: 0px;
+}
+
+.div-container-home {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.foto-perrito-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.foto-perrito-home {
+    width: 600px;
+    height: 600px;
+    margin-top: 30px;
+}
+
+.subtitulo-home {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.div-container-home {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.contenedor-titulo-home {
+    width: 400px;
+    align-items: center;
+}
+
+.titulo-home-container {
+    padding-top: 70px;
+}
+
+.titulo-home {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 120px;
+    margin-bottom: 56px;
+}
+.boton-home {
+    height: 40px;
+    background-color: #6D8BE8;
+    color: white;
+    border: none;
+    width: 140px;
+    height: 37px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 18px;
+    font-family: 'Josefin Sans', sans-serif;
+}
