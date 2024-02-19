@@ -1,9 +1,45 @@
-.searchbar {
-    border: solid 2px;
-    border-color: #6D8BE8;
-    border-radius: 20px;
-    height: 30px;
-    width: 270px;
-    margin-top: 40px;
-    background-color: #FFFCF5;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Share Tech Mono", monospace;
+  margin: 1px auto;
+  position: relative;
+}
+.input {
+  flex: 1;
+  border-radius: 5px;
+  background-color: #ffffff;
+  font-size: 1.5vw;
+  padding: 10px;
+  width: auto;
+}
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+.input:focus {
+  border: 3px solid;
+  outline: none;
+  box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+}
+@media screen and (max-width: 768px) {
+  .input {
+    width: 100%;
+    font-size: 20px;
+  }
+}
+
+.search {
+  color: #ffffff;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: rgb(3, 15, 249);
+  font-size: 25px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  margin-left: 20px;
+}
+.search:hover {
+  background-color: rgb(247, 5, 5);
 }

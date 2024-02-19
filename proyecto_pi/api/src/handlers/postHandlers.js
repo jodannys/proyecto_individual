@@ -1,59 +1,103 @@
-const express = require("express");
 const { Dog, Temperament, User } = require("../db");
-const UserBd = require("../controllers/UserBd");
 const loginUser = require("../controllers/LoginUser");
 const bcrypt = require("bcrypt");
 
-//? Esta ruta permite la creación de un nuevo perro.
 
 const postCreatedog = (req, res) => {
-  let temperamentsId = req.body.temperamentsId;
-  Dog.create({
-    name: req.body.perroNuevo.name,
-    altura: req.body.perroNuevo.altura,
-    peso: req.body.perroNuevo.peso,
-    años: req.body.perroNuevo.años,
-    id: Date.parse(new Date()),
-  })
-    .then((dog) => {
-      dog.setTemperaments(temperamentsId);
-      res.status(200).send(dog);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send("Error interno del servidor");
-    });
-};
+  // Extraer datos del cuerpo de la solicitud
+  const { name, altura, peso, años, temperamentsId } = req.body;
 
-//? Esta ruta permite la creación de un nuevo temperamento.
+  // Validar datos antes de crear el perro
+  if (!name || !altura || !peso || !años || !temperamentsId) {
+    return res.status(400).json({ error: 'Todos los campos son requeridos' });
+  }
+
+  // Crear un nuevo perro en la base de datos
+  Dog.create({
+      name,
+      altura,
+      peso,
+      años,
+      id: Date.parse(new Date()) // ¿Necesitas generar una ID única?
+  })
+  .then((dog) => {
+      // Asignar temperamentos al perro
+      dog.setTemperaments(temperamentsId);
+      // Enviar respuesta con el perro creado
+      res.status(200).json(dog);
+  })
+  .catch((error) => {
+      // Manejar errores
+      console.error('Error al crear un nuevo perro:', error);
+      res.status(500).json({ error: 'Ocurrió un error al procesar la solicitud' });
+  });
+}
+
+
+// const postCreatedog = (req, res) => {
+//   console.log("Datos recibidos en la solicitud:", req.body);
+
+//   const { name, altura, peso, años, imagen, temperamentsId } = req.body;
+
+//   if (!name || !altura || !peso || !años || !imagen) {
+//     res.status(400).send('Faltan datos en el cuerpo de la solicitud');
+//     return;
+//   }
+  
+//   Dog.create({
+//     name,
+//     altura,
+//     peso,
+//     años,
+//     imagen, 
+//     id: Date.parse(new Date()),
+//   })
+//     .then((dog) => {
+//       // Utilizamos una promesa encadenada para manejar la asociación con temperamentosId
+//       return dog.setTemperaments(temperamentsId);
+//     })
+//     .then(() => {
+//       res.status(200).send('Perro creado correctamente'); // Enviamos un mensaje de éxito
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       res.status(500).send("Error interno del servidor");
+//     });
+// };
+
 
 const postCreatetemperament = (req, res) => {
+  const { temperamentonuevo } = req.body;
+
+  if (!temperamentonuevo) {
+    console.log('Error: Faltan datos en el cuerpo de la solicitud');
+    res.status(400).send('Faltan datos en el cuerpo de la solicitud');
+    return;
+  }
+
   Temperament.create({
-    name: req.body.temperamentonuevo,
+    name: temperamentonuevo,
     id: Date.parse(new Date()),
   })
     .then((temperament) => {
-      res.send(temperament.dataValues);
+      res.status(200).send(temperament.dataValues);
     })
     .catch((error) => {
       console.log(error);
       res.status(500).send("Error interno del servidor");
     });
 };
-//? Esta ruta permite la creación de un nuevo usuario.
 
 const createUser = async (req, res) => {
-  const { id, name, email, password } = req.body;
+  const { name, email, password } = req.body;
+
   try {
-    // Generar el hash de la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Crear el nuevo usuario en la base de datos con la contraseña encriptada
     const newUser = await User.create({
-      id,
       name,
       email,
-      password: hashedPassword, // Almacenar la contraseña encriptada
+      password: hashedPassword,
     });
 
     res.status(200).json(newUser);
@@ -62,13 +106,11 @@ const createUser = async (req, res) => {
   }
 };
 
-//? Esta ruta permite el inicio de seccion.
-
 const login = async (req, res) => {
+  const { email, password } = req.body;
+  
   try {
-    const { email, password } = req.body;
     if (!email || !password) {
-      // Si falta el correo electrónico o la contraseña en el cuerpo de la solicitud
       throw new Error("Se requiere un correo electrónico y una contraseña.");
     }
 

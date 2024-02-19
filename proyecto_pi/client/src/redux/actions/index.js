@@ -92,6 +92,10 @@ export const fetchDogsSuccess = (dogs) => ({
     type: "FETCH_DOGS_SUCCESS",
     payload: dogs,
   });
+  export const fetchRazasSuccess = (razas) => ({
+    type: "ADD_RAZAS",
+    payload: razas,
+  });
   
   export const fetchDogByIdSuccess = (dog) => ({
     type: "FETCH_DOG_BY_ID_SUCCESS",
@@ -118,4 +122,3 @@ export const fetchDogsSuccess = (dogs) => ({
     type: "SET_ERROR",
     payload: error,
   });
-  

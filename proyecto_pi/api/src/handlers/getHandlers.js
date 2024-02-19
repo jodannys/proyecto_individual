@@ -27,6 +27,48 @@ const getDogs = async (req, res) => {
   }
 };
 
+//DETALLE DE UN PERRO
+const getDetail = async function (req, res) {
+  try {
+    console.log("Iniciando búsqueda del detalle del perro...");
+
+    // Buscar el perro en la base de datos local
+    let detallesDog = await Dog.findByPk(req.params.id);
+
+    if (!detallesDog) {
+      // Si el perro no se encuentra en la base de datos local, realizar una solicitud a la API
+      console.log("Perro no encontrado en la base de datos local. Buscando en la API...");
+
+      axios.get(`${process.env.API_URL}/${req.params.id}`)
+        .then(response => {
+          if (response.data.error) {
+            // Si la API devuelve un error, enviar una respuesta con un error 404
+            console.log(response.data.error);
+            return res.status(404).json({ error: 'Perro no encontrado en la API' });
+          } else {
+            // Si se encuentra el perro en la API, enviar la respuesta
+            res.json(response.data);
+          }
+        })
+        .catch(error => {
+          // Manejar errores de la solicitud a la API
+          console.log(error);
+          res.status(500).json({ error: 'Error interno del servidor al buscar en la API' });
+        });
+    } else {
+      // Si se encuentra el perro en la base de datos local, enviar la respuesta
+      console.log("Perro encontrado en la base de datos local:", detallesDog);
+      res.json(detallesDog);
+    }
+  } catch (error) {
+    // Manejar errores generales
+    console.error('Error al obtener el detalle del perro:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+}
+
+
+
 //?  Obtener todas las razas de perro de la API
 const getSearch = async (req, res) => {
   try {
@@ -129,5 +171,6 @@ module.exports = {
   getSearch,
   getTemperamentos,
   getDogs,
-  getUserByEmail 
+  getUserByEmail,
+  getDetail
 };

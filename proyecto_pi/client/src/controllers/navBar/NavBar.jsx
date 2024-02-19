@@ -1,33 +1,47 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom'; // Importa useLocation para obtener la ruta actual
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBone } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "../searchBar/SearchBar";
-import './NavBar.css'; // Importa el archivo de estilos CSS
+import "./NavBar.css";
 
 const Navbar = () => {
-  const location = useLocation(); // Obtiene la ruta actual
+  const location = useLocation();
 
-  // Renderiza la barra de navegación en todas las rutas excepto "/login"
-  if (location.pathname !== '/login') {
+  if (location.pathname !== "/login" && location.pathname !== "/registro") {
     return (
-      <nav className="navbar"> {/* Aplica la clase CSS navbar */}
-        <ul className="navbar-list"> {/* Aplica la clase CSS navbar-list */}
-          <li className="navbar-item"> {/* Aplica la clase CSS navbar-item */}
-            <Link to="/" className="navbar-link">Inicio</Link> {/* Aplica la clase CSS navbar-link */}
-          </li>
-          <li className="navbar-item"> {/* Aplica la clase CSS navbar-item */}
-            <Link to="/dogs" className="navbar-link">Perros</Link> {/* Aplica la clase CSS navbar-link */}
-          </li>
-          <li className="navbar-item"> {/* Aplica la clase CSS navbar-item */}
-            <Link to="/about" className="navbar-link">Acerca de</Link> {/* Aplica la clase CSS navbar-link */}
-          </li>
-          <li> <Link to="/buscar" className="navbar-link">filtrar </Link></li>
-          {/* Agrega más elementos <li> y <Link> según sea necesario */}
+      <div>
+      <nav className="navbar">
+        <ul className="login">
+          <div className="navbar-item">
+            <Link to="/buscar" className="link">
+              <span className="text2">Inicio</span>
+            </Link>
+            <div className="navbar-item">
+              <Link to="/dogAgregar" className="link">
+                <span className="text3">Crear Perro</span>
+              </Link>
+              <FontAwesomeIcon icon={faBone} className="icono2" />
+            </div>
+            <FontAwesomeIcon icon={faBone} className="icono3" />
+          </div>
+          <SearchBar className="search-bar" />
+          <div className="logoContainer">
+            <Link to="/" className="link">
+              <span className="text1">Cerrar Sesión</span>
+            </Link>
+            <FontAwesomeIcon icon={faBone} className="icono" />
+          </div>
         </ul>
-        <SearchBar className="search-bar" /> {/* Aplica la clase CSS search-bar */}
       </nav>
+    </div>
     );
   } else {
-    return null; // Si estás en la ruta "/login", no renderiza la barra de navegación
+    return (
+      <nav className="navbar">
+        <SearchBar className="search-bar" />
+      </nav>
+    );
   }
 };
 

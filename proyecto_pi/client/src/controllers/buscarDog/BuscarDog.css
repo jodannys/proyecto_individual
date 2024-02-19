@@ -1,0 +1,125 @@
+/* .container-todos-select {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.select-container1 {
+  flex: 1;
+  padding: 5px;
+  font-size: 1.5rem;
+  background-color: white;
+  background-color: rgb(0, 255, 255);
+}
+
+.select-container2 {
+  flex: 1;
+  padding: 5px;
+  font-size: 1.5rem;
+  background-color: white;
+  background-color: rgb(102, 255, 0);
+}
+
+.select-container3 {
+  flex: 1;
+  padding: 5px;
+  font-size: 1.5rem;
+  background-color: white;
+  background-color: rgb(255, 0, 0);
+}
+
+.select-container4 {
+  flex: 1;
+  padding: 5px;
+  font-size: 1.5rem;
+  background-color: white;
+  background-color: rgb(255, 234, 0);
+}
+
+.imput {
+  padding: auto;
+  font-size: 15px;
+  border: #fafaff;
+  align-items:justify;
+}
+
+
+   */
+   .container-todos-select {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    gap: 20px; /* Espaciado entre los contenedores de filtro */
+    margin-bottom: 20px; /* Espacio en la parte inferior del contenedor de filtros */
+  }
+  
+  .select-container {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+  }
+  
+  .dogs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra las cartas horizontalmente */
+    gap: 20px; /* Espaciado entre las cartas */
+  }
+  
+  .card-container {
+    width: 280px; /* Ancho de la carta */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    margin-bottom: 20px; /* Espacio en la parte inferior de la carta */
+  }
+  
+  /* Estilos para el contenido dentro de la carta */
+  .card-content {
+    padding: 20px;
+  }
+  
+  /* Estilos para el texto dentro de la carta */
+  .card-text {
+    margin-top: 10px; /* Espacio en la parte superior del texto */
+  }
+  
+  /* Estilos para las imágenes dentro de la carta */
+  .img-dog {
+    width: 100%; /* Ancho máximo de la imagen */
+    height: 200px; /* Altura fija para todas las imágenes */
+    object-fit:fill ;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  
+  /* Estilos para los enlaces */
+  .card-link {
+    text-decoration: none; /* Quitar subrayado de los enlaces */
+    color: #333; /* Color del texto */
+  }
+  
+  /* Estilos para el paginador */
+  .paginador {
+    display: flex;
+    justify-content: center; /* Centra los botones del paginador horizontalmente */
+    margin-top: 20px; /* Espacio en la parte superior del paginador */
+  }
+  
+  .paginador-btn {
+    padding: 10px 20px; /* Espaciado interno de los botones */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #fff; /* Color del texto */
+    border: none; /* Quitar borde del botón */
+    border-radius: 5px; /* Borde redondeado del botón */
+    cursor: pointer; /* Cursor al pasar sobre el botón */
+    margin: 0 5px; /* Espacio horizontal entre los botones */
+  }
+  
+  .paginador-btn:hover {
+    background-color: #0056b3; /* Color de fondo del botón al pasar el cursor */
+  }
+  

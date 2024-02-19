@@ -1,22 +1,29 @@
-.boton-paginador {
-    border: 2px solid;
-    border: white;
-    background-color: #DC472F;
-    color: white;
-    font-size: 15px;
-}
-
-.boton-paginador:active {
-    background-color: black;
-    color: white;
-}
-
-.boton-paginador:hover:not(.active) {
-    background-color: rgb(0, 0, 0);
-}
-
-.div-paginador {
+.pagination {
     display: flex;
     justify-content: center;
-    padding: 40px;
-}
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .page-item {
+    margin: 0 5px;
+  }
+  
+  .page-link {
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .page-link:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .page-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #ccc;
+  }
+  

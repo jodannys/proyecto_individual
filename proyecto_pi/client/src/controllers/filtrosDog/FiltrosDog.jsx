@@ -1,94 +1,132 @@
-// import React, { useState } from 'react';
+// import React, { useState } from "react";
 
-// function FilterSortOptions({ onFilterByTemperament, onFilterByOrigin, onSortByName, onSortByWeight }) {
-//   const [sortBy, setSortBy] = useState('name');
+// function FiltrosBuscar({ onFilterChange }) {
+//   const [peso, setPeso] = useState("");
+//   const [orderAlfabet, setOrderAlfabet] = useState("");
+//   const [temperamentSelected, setTemperamentSelected] = useState("");
+//   const [razaSelected, setRazaSelected] = useState("");
 
-//   const handleSortChange = (e) => {
-//     setSortBy(e.target.value);
-//     if (e.target.value === 'nameAsc' || e.target.value === 'nameDesc') {
-//       onSortByName(e.target.value);
-//     } else {
-//       onSortByWeight(e.target.value);
-//     }
+//   const handlePesoChange = (e) => {
+//     const selectedPeso = e.target.value;
+//     setPeso(selectedPeso);
+//     onFilterChange({ peso: selectedPeso });
+//   };
+
+//   const handleOrderAlfabetChange = (e) => {
+//     const selectedOrder = e.target.value;
+//     setOrderAlfabet(selectedOrder);
+//     onFilterChange({ orderAlfabet: selectedOrder });
+//   };
+
+//   const handleTemperamentChange = (e) => {
+//     const selectedTemperament = e.target.value;
+//     setTemperamentSelected(selectedTemperament);
+//     onFilterChange({ temperament: selectedTemperament });
+//   };
+
+//   const handleRazaChange = (e) => {
+//     const selectedRaza = e.target.value;
+//     setRazaSelected(selectedRaza);
+//     onFilterChange({ raza: selectedRaza });
 //   };
 
 //   return (
-//     <div>
-//       <label>Filtrar por temperamento:</label>
-//       <button onClick={() => onFilterByTemperament('Temperamento1')}>Temperamento1</button>
-//       <button onClick={() => onFilterByTemperament('Temperamento2')}>Temperamento2</button>
-//       {/* Agrega más botones de temperamento según tus necesidades */}
-
-//       <label>Filtrar por origen:</label>
-//       <select onChange={(e) => onFilterByOrigin(e.target.value)}>
-//         <option value="api">API</option>
-//         <option value="baseDatos">Base de Datos</option>
-//       </select>
-
-//       <label>Ordenar por:</label>
-//       <select value={sortBy} onChange={handleSortChange}>
-//         <option value="nameAsc">Nombre (A-Z)</option>
-//         <option value="nameDesc">Nombre (Z-A)</option>
-//         <option value="weightAsc">Peso (Ascendente)</option>
-//         <option value="weightDesc">Peso (Descendente)</option>
-//       </select>
+//     <div className="container-todos-select">
+//       <div className="select-container">
+//         <p className="p-select">Ordenar por peso:</p>
+//         <select value={peso} onChange={handlePesoChange}>
+//           <option value="liviano-pesado">Más liviano a más pesado</option>
+//           <option value="pesado-liviano">Más pesado a más liviano</option>
+//         </select>
+//       </div>
+//       <div className="select-container">
+//         <p className="p-select">Ordenar alfabeticamente:</p>
+//         <select value={orderAlfabet} onChange={handleOrderAlfabetChange}>
+//           <option value="asc-desc">Ascendente a descendente</option>
+//           <option value="desc-asc">Descendente a ascendente</option>
+//         </select>
+//       </div>
+//       <div className="select-container">
+//         <p>Filtrar por temperamento:</p>
+//         <select onChange={handleTemperamentChange}>
+//           <option value={""}>Seleccionar filtro</option>
+//           {/* Aquí deberías mapear los temperamentos disponibles */}
+//         </select>
+//       </div>
+//       <div className="select-container">
+//         <p>Filtrar por raza:</p>
+//         <select onChange={handleRazaChange}>
+//           <option value={""}>Seleccionar filtro</option>
+//           {/* Aquí deberías mapear las razas disponibles */}
+//         </select>
+//       </div>
 //     </div>
 //   );
 // }
 
-// export default FilterSortOptions;
-import React, { useState } from 'react';
+// export default FiltrosBuscar;
+import React, { useState } from "react";
 
-function FilterSortOptions({ onFilterByTemperament, onFilterByOrigin, onSortByName, onSortByWeight }) {
-  const [selectedTemperament, setSelectedTemperament] = useState('');
-  const [selectedOrigin, setSelectedOrigin] = useState('');
-  const [sortBy, setSortBy] = useState('');
+function FiltrosBuscar({ onFilterChange, onSortChange }) {
+  const [filtroTemperamento, setFiltroTemperamento] = useState("");
+  const [filtroOrigen, setFiltroOrigen] = useState("");
+  const [ordenRazaAlfabetico, setOrdenRazaAlfabetico] = useState("asc");
+  const [ordenPeso, setOrdenPeso] = useState("asc");
 
-  const handleTemperamentChange = (e) => {
-    const temperament = e.target.value;
-    setSelectedTemperament(temperament);
-    onFilterByTemperament(temperament);
+  const handleTemperamentoChange = (temperamento) => {
+    setFiltroTemperamento(temperamento);
+    onFilterChange({ temperamento });
   };
 
-  const handleOriginChange = (e) => {
-    const origin = e.target.value;
-    setSelectedOrigin(origin);
-    onFilterByOrigin(origin);
+  const handleOrigenChange = (origen) => {
+    setFiltroOrigen(origen);
+    onFilterChange({ origen });
   };
 
-  const handleSortChange = (e) => {
-    const sortType = e.target.value;
-    setSortBy(sortType);
-    if (sortType === 'name') {
-      onSortByName(sortType);
-    } else if (sortType === 'weight') {
-      onSortByWeight(sortType);
-    }
+  const handleOrdenRazaAlfabeticoChange = () => {
+    const nuevoOrden =
+      ordenRazaAlfabetico === "asc" ? "desc" : "asc";
+    setOrdenRazaAlfabetico(nuevoOrden);
+    onSortChange({ tipo: "alfabetico", orden: nuevoOrden });
+  };
+
+  const handleOrdenPesoChange = () => {
+    const nuevoOrden = ordenPeso === "asc" ? "desc" : "asc";
+    setOrdenPeso(nuevoOrden);
+    onSortChange({ tipo: "peso", orden: nuevoOrden });
   };
 
   return (
-    <div>
-      <select value={selectedTemperament} onChange={handleTemperamentChange}>
-        <option value="">Filtrar por temperamento</option>
-        {/* Aquí se pueden generar las opciones dinámicamente */}
-        <option value="temperamento1">Temperamento 1</option>
-        <option value="temperamento2">Temperamento 2</option>
-      </select>
-
-      <select value={selectedOrigin} onChange={handleOriginChange}>
-        <option value="">Filtrar por origen</option>
-        {/* Aquí se pueden generar las opciones dinámicamente */}
-        <option value="api">API</option>
-        <option value="database">Base de datos</option>
-      </select>
-
-      <select value={sortBy} onChange={handleSortChange}>
-        <option value="">Ordenar</option>
-        <option value="name">Nombre</option>
-        <option value="weight">Peso</option>
-      </select>
+    <div className="container-todos-select">
+      <div className="select-container">
+      <div className="select-container">
+        <p>Filtrar por origen:</p>
+        <select onChange={(e) => handleOrigenChange(e.target.value)}>
+          <option value="">Todos los orígenes</option>
+          <option value="api">API</option>
+          <option value="baseDatos">Base de datos</option>
+        </select>
+      </div>
+        <p>Filtrar por temperamento:</p>
+        <select onChange={(e) => handleTemperamentoChange(e.target.value)}>
+          <option value="">Todos los temperamentos</option>
+          {/* Aquí debes mapear los temperamentos disponibles */}
+        </select>
+      </div>
+      <div>
+        <p>Ordenar razas:</p>
+        <button onClick={handleOrdenRazaAlfabeticoChange}>
+           Razas por Orden alfabético {ordenRazaAlfabetico === "asc" ? "A-Z" : "Z-A"}
+        </button>
+      </div>
+      <div>
+        <p>Ordenar por peso:</p>
+        <button onClick={handleOrdenPesoChange}>
+          {ordenPeso === "asc" ? "Ascendente" : "Descendente"}
+        </button>
+      </div>
     </div>
   );
 }
 
-export default FilterSortOptions;
+export default FiltrosBuscar;

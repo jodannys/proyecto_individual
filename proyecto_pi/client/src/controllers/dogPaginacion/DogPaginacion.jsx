@@ -1,56 +1,27 @@
-// import React from 'react'
-// import  "./DogPaginacion.css"
-
-// const dogPaginacion = ({ itemsPorPag, totalPosts, paginate }) => {
-//   const pageNumbers = [];
-//   const division = Math.ceil(totalPosts / itemsPorPag)  //8 dogs / 4 = 2paginas
-//   for (let i = 1; i <= division; i++) {
-//     pageNumbers.push(i);
-//   }
-
-//   return (
-//     <div>
-//       <div className= "div-paginador">
-//         {pageNumbers.map(number => (
-//           <div>
-//             <button className= "boton-paginador" onClick={() => paginate(number)}>
-//               {number}
-//             </button>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default dogPaginacion;
-import React from 'react';
-import './DogPaginacion.css';
+import React from "react";
+import "./DogPaginacion.css";
 
 const DogPaginacion = ({ itemsPorPag, totalPosts, paginate }) => {
-  console.log("itemsPorPag:", itemsPorPag);
   const pageNumbers = [];
-  const division = Math.ceil(totalPosts / itemsPorPag); 
-  console.log("division:", division);
 
-  for (let i = 1; i <= division; i++) {
+  for (let i = 1; i <= Math.ceil(totalPosts / itemsPorPag); i++) {
     pageNumbers.push(i);
   }
 
   return (
-    <div>
-      <div className="div-paginador">
-        {pageNumbers.map(number => (
-          <div key={number}>
-            <button className="boton-paginador" onClick={() => paginate(number)}>
+    <div className="pagination-container">
+      <ul className="pagination">
+        {pageNumbers.map((number) => (
+          <li key={number} className="page-item">
+            <button
+              className="page-link"
+              onClick={() => paginate(number)}
+            >
               {number}
-           
             </button>
-          </div>
+          </li>
         ))}
-        {/* Botón de "Siguiente" */}
-      
-      </div>
+      </ul>
     </div>
   );
 };

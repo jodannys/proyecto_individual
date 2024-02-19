@@ -10,7 +10,14 @@
     font-size: 15px;
     font-family: 'Josefin Sans', sans-serif;
 }
-
+.image-preview {
+    max-width: 300px; /* Establece el ancho máximo */
+    max-height: 200px; /* Establece la altura máxima */
+    width: auto; /* Permite que la imagen mantenga su relación de aspecto */
+    height: auto; /* Permite que la imagen mantenga su relación de aspecto */
+    background-color: none;
+  }
+  
 .tabs {
     height: 50px;
     padding-top: 15px;
@@ -53,7 +60,7 @@
 .container-amarilloo {
     display: flex;
     background-color: #FADE56;
-    height: 420px;
+    height: 820px;
     width: 730px;
     border-radius: 4px;
     margin-top: 8%;
