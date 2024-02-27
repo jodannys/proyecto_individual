@@ -1,63 +1,45 @@
-.fondo-dog-detail {
-    display: flex;
-    height: 1440px;
-    width: 1290px;
-    margin: 0px;
+.detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  height: 50vh;
+  position: relative;
+  padding-top: 150px;
 }
 
-.container-amarillo {
-    display: flex;
-    background-color: #FADE56;
-    height: 420px;
-    width: 730px;
-    border-radius: 4px;
-    margin-top: 8%;
-    margin-left: 22%;
+.nombre-id {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  color: rgb(255, 255, 255);
 }
-
-.container-img {
-    background-color: white;
-    height: 280px;
-    width: 200px;
-    border-radius: 4px;
-    margin-top: 8%;
-    margin-left: 7%;
-}
-
-.img-perro {
-    height: 145px;
-    width: 180px;
-    border-radius: 4px;
-    margin: 5px;
-    padding-top: 5px;
-}
-
 .descripcion-perro {
-    height: 363px;
-    width: 362px;
-    padding-top: 50px;
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
+  margin-top: -30px;
+}
+.img {
+  border-radius: 0px 134px 132px 131px;
+  -webkit-border-radius: 0px 134px 132px 131px;
+  -moz-border-radius: 0px 134px 132px 131px;
+  border: 20px double #6e6c6e;
+  height: 450px;
+  width: 550px;
+  margin: 50px;
+  box-shadow: 3px 0px 30px rgb(231, 238, 235);
 }
 
-input {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 14px;
-    background-color: #FADE56;
-    border-bottom: 1px solid;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    outline: black;
-    width: 100px;
-    margin-left: 15px;
-}
+.descripcion {
+  padding: 2%;
+  font-size: 20px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  color: #080808;
+  justify-content: center;
+  box-shadow: 3px 0px 10px rgba(163, 163, 163, 1);
+  background-color: #c4c1a791;
 
-.container-desc-img {
-    display: flex;
-}
-
-.img-subir {
-    background-color: white;
-    padding-top: 30px;
+  border-radius: 10%;
 }

@@ -6,36 +6,39 @@ import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./searchBar.css";
 
 function SearchBar() {
+
   const dispatch = useDispatch();
   const [buscar, setBuscar] = useState("");
-  const [setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleChange = (e) => {
     setBuscar(e.target.value);
   };
 
+  const searchTerm = buscar.trim();
+
   const handleSearch = () => {
-    console.log("Realizando búsqueda...");
     if (!buscar.trim()) {
       alert("Por favor ingresa el nombre del perro a buscar");
       return;
     }
-    // Realiza la solicitud al servidor
+    if (!/^[a-zA-Z\s]*$/.test(searchTerm)) {
+      alert("Por favor ingresa un nombre válido para buscar perros");
+      return;
+    }
     axios
       .get(`http://localhost:3001/search?name=${buscar}`)
       .then((res) => {
         console.log("Respuesta del servidor:", res);
-        // Verifica si la respuesta contiene datos
         if (res.data.length === 0) {
           alert("No se encontró el perro");
         } else {
-          // Actualiza el estado con los resultados de búsqueda
           setSearchResults(res.data);
-          // Dispatch para actualizar el estado global si es necesario
           dispatch({
             type: "SEARCH_DOGS",
             payload: res.data,
           });
+          setBuscar("");
         }
       })
       .catch((error) => {
@@ -50,11 +53,13 @@ function SearchBar() {
     }
   };
 
+
+
   return (
-    <div className="containe">
+    <div className="container">
       <input
-        className="input"
-        placeholder="Buscar"
+        className="inputs"
+        placeholder="Buscar por nombre"
         value={buscar}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
@@ -62,6 +67,7 @@ function SearchBar() {
       <button className="search" onClick={handleSearch}>
         <FontAwesomeIcon icon={faPaw} />
       </button>
+   
     </div>
   );
 }

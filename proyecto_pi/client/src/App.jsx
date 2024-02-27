@@ -1,45 +1,32 @@
-import React, { useState, useEffect } from "react";
+
+import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./controllers/navBar/NavBar";
-import Login from "./controllers/login/Login";
-import Form from "./controllers/form/Form";
+import Home from "./controllers/home/Home";
 import BuscarDog from "./controllers/buscarDog/BuscarDog";
 import DogAgregar from "./controllers/dogAgregar/DogAgregar";
 import DogDetail from "./controllers/dogDetail/DogDetail";
-import axios from "axios";
+import DogDetailBd from "./controllers/dogDetailBd/DogDetailBd";
+import TemperamentForm from "./controllers/crearTemperamento/Temperamentos";
 
 const App = () => {
-  const [perros, setPerros] = useState([]);
   const location = useLocation();
-
-  useEffect(() => {
-    const fetchPerros = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/dogs");
-        setPerros(response.data);
-      } catch (error) {
-        console.error("Error al obtener los perros:", error);
-      }
-    };
-
-    fetchPerros();
-  }, []);
-
-  // Verificar si la ruta actual no es "/" ni "/registro" para decidir si mostrar la barra de navegación
-  const showNavbar = location.pathname !== "/" && location.pathname !== "/registro";
 
   return (
     <div>
-      {showNavbar && <Navbar />}
+      {location.pathname !== "/" && <Navbar />}
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/registro" element={<Form />} />
-        <Route path="/buscar" element={<BuscarDog perros={perros} />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/buscar" element={<BuscarDog />} />
         <Route path="/dogAgregar" element={<DogAgregar />} />
+        <Route path="/temperamento" element={<TemperamentForm />} />
         <Route path="/detail/:id" element={<DogDetail />} />
+        <Route path="/detailBd/:id" element={<DogDetailBd />} />
+        <Route path="/dog/:id" element={<DogDetail />} />
       </Routes>
     </div>
   );
 };
 
 export default App;
+

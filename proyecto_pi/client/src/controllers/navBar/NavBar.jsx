@@ -1,48 +1,51 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBone } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
 import "./NavBar.css";
 
 const Navbar = () => {
-  const location = useLocation();
+  const navigate = useNavigate();
 
-  if (location.pathname !== "/login" && location.pathname !== "/registro") {
-    return (
-      <div>
+  const resetPage = () => {
+    navigate("/buscar");
+  };
+
+  const handleLogout = () => {
+    navigate("/");
+  };
+
+  return (
+    <div>
       <nav className="navbar">
         <ul className="login">
-          <div className="navbar-item">
-            <Link to="/buscar" className="link">
-              <span className="text2">Inicio</span>
+          <li className="navbar-item">
+            <Link to="/buscar" className="link" onClick={resetPage}>
+              <span className="icono">Inicio</span>
             </Link>
+
             <div className="navbar-item">
               <Link to="/dogAgregar" className="link">
-                <span className="text3">Crear Perro</span>
+                <span className="icono3">Crear Perro</span>
               </Link>
-              <FontAwesomeIcon icon={faBone} className="icono2" />
             </div>
-            <FontAwesomeIcon icon={faBone} className="icono3" />
-          </div>
+            <div className="navbar-item">
+              <Link to="/temperamento" className="link">
+                <span className="icono2">Crear temperamento</span>
+                <p> </p>
+              </Link>
+            </div>
+          </li>
+  
           <SearchBar className="search-bar" />
-          <div className="logoContainer">
-            <Link to="/" className="link">
-              <span className="text1">Cerrar Sesión</span>
-            </Link>
-            <FontAwesomeIcon icon={faBone} className="icono" />
-          </div>
+                
+
+          <button className="link" onClick={handleLogout}>
+            <span className="icono4">Salir</span>
+          </button>
         </ul>
       </nav>
     </div>
-    );
-  } else {
-    return (
-      <nav className="navbar">
-        <SearchBar className="search-bar" />
-      </nav>
-    );
-  }
+  );
 };
 
 export default Navbar;

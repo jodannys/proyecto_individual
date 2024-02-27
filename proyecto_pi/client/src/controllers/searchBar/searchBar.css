@@ -5,41 +5,53 @@
   font-family: "Share Tech Mono", monospace;
   margin: 1px auto;
   position: relative;
+
 }
-.input {
+
+.inputs {
   flex: 1;
   border-radius: 5px;
-  background-color: #ffffff;
-  font-size: 1.5vw;
-  padding: 10px;
+  font-size: 1.2vw;
+  padding: 5px 15px;
   width: auto;
+
 }
-.input::-webkit-search-cancel-button {
+.inputs::-webkit-search-cancel-button {
   display: none;
 }
-.input:focus {
+.inputs:focus {
   border: 3px solid;
   outline: none;
   box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
 }
+
 @media screen and (max-width: 768px) {
-  .input {
+  .inputs {
     width: 100%;
-    font-size: 20px;
+    font-size: 20px; /* Ajustado para pantalla pequeña */
+    padding: 10px; /* Ajustado para pantalla pequeña */
   }
 }
 
+
 .search {
-  color: #ffffff;
-  padding: 10px 20px;
+  color: #ff0000;
+  padding: 5px 15px;
   cursor: pointer;
   background-color: rgb(3, 15, 249);
   font-size: 25px;
-  border-radius: 50%;
+  border-radius: 20%;
   border: none;
   outline: none;
   margin-left: 20px;
 }
 .search:hover {
   background-color: rgb(247, 5, 5);
+}
+@media screen and (max-width: 768px) {
+  .search{
+    
+    font-size: 15px; 
+  
+  }
 }

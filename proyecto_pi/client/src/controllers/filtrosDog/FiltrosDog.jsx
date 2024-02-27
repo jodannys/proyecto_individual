@@ -1,132 +1,145 @@
-// import React, { useState } from "react";
 
-// function FiltrosBuscar({ onFilterChange }) {
-//   const [peso, setPeso] = useState("");
-//   const [orderAlfabet, setOrderAlfabet] = useState("");
-//   const [temperamentSelected, setTemperamentSelected] = useState("");
-//   const [razaSelected, setRazaSelected] = useState("");
 
-//   const handlePesoChange = (e) => {
-//     const selectedPeso = e.target.value;
-//     setPeso(selectedPeso);
-//     onFilterChange({ peso: selectedPeso });
-//   };
 
-//   const handleOrderAlfabetChange = (e) => {
-//     const selectedOrder = e.target.value;
-//     setOrderAlfabet(selectedOrder);
-//     onFilterChange({ orderAlfabet: selectedOrder });
-//   };
+import React from "react";
+import "./FiltrosDog.css";
 
-//   const handleTemperamentChange = (e) => {
-//     const selectedTemperament = e.target.value;
-//     setTemperamentSelected(selectedTemperament);
-//     onFilterChange({ temperament: selectedTemperament });
-//   };
-
-//   const handleRazaChange = (e) => {
-//     const selectedRaza = e.target.value;
-//     setRazaSelected(selectedRaza);
-//     onFilterChange({ raza: selectedRaza });
-//   };
-
-//   return (
-//     <div className="container-todos-select">
-//       <div className="select-container">
-//         <p className="p-select">Ordenar por peso:</p>
-//         <select value={peso} onChange={handlePesoChange}>
-//           <option value="liviano-pesado">Más liviano a más pesado</option>
-//           <option value="pesado-liviano">Más pesado a más liviano</option>
-//         </select>
-//       </div>
-//       <div className="select-container">
-//         <p className="p-select">Ordenar alfabeticamente:</p>
-//         <select value={orderAlfabet} onChange={handleOrderAlfabetChange}>
-//           <option value="asc-desc">Ascendente a descendente</option>
-//           <option value="desc-asc">Descendente a ascendente</option>
-//         </select>
-//       </div>
-//       <div className="select-container">
-//         <p>Filtrar por temperamento:</p>
-//         <select onChange={handleTemperamentChange}>
-//           <option value={""}>Seleccionar filtro</option>
-//           {/* Aquí deberías mapear los temperamentos disponibles */}
-//         </select>
-//       </div>
-//       <div className="select-container">
-//         <p>Filtrar por raza:</p>
-//         <select onChange={handleRazaChange}>
-//           <option value={""}>Seleccionar filtro</option>
-//           {/* Aquí deberías mapear las razas disponibles */}
-//         </select>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default FiltrosBuscar;
-import React, { useState } from "react";
-
-function FiltrosBuscar({ onFilterChange, onSortChange }) {
-  const [filtroTemperamento, setFiltroTemperamento] = useState("");
-  const [filtroOrigen, setFiltroOrigen] = useState("");
-  const [ordenRazaAlfabetico, setOrdenRazaAlfabetico] = useState("asc");
-  const [ordenPeso, setOrdenPeso] = useState("asc");
-
-  const handleTemperamentoChange = (temperamento) => {
-    setFiltroTemperamento(temperamento);
-    onFilterChange({ temperamento });
+const FiltrosBuscar = ({
+  peso,
+  orderAlfabet,
+  temperamentSelected,
+  razaSelected,
+  origenSelected,
+  setPeso,
+  setOrderAlfabet,
+  setTemperamentSelected,
+  setRazaSelected,
+  setOrigenSelected,
+  temperaments,
+  razas,
+  pesoSelectedChange,
+  alfabetSelectedChange,
+  temperamentChange,
+  razaChange,
+  resetFilters,
+  fetchFromApi,
+  fetchFromDatabase,
+}) => {
+  const handleReset = () => {
+    setPeso("");
+    setOrderAlfabet("");
+    setTemperamentSelected("");
+    setRazaSelected("");
+    resetFilters();
   };
 
-  const handleOrigenChange = (origen) => {
-    setFiltroOrigen(origen);
-    onFilterChange({ origen });
+  const handleFetchFromApi = () => {
+    setOrigenSelected("api");
+    console.log("Origen seleccionado: API");
+    fetchFromApi();
   };
 
-  const handleOrdenRazaAlfabeticoChange = () => {
-    const nuevoOrden =
-      ordenRazaAlfabetico === "asc" ? "desc" : "asc";
-    setOrdenRazaAlfabetico(nuevoOrden);
-    onSortChange({ tipo: "alfabetico", orden: nuevoOrden });
-  };
-
-  const handleOrdenPesoChange = () => {
-    const nuevoOrden = ordenPeso === "asc" ? "desc" : "asc";
-    setOrdenPeso(nuevoOrden);
-    onSortChange({ tipo: "peso", orden: nuevoOrden });
+  const handleFetchFromDatabase = () => {
+    setOrigenSelected("database");
+    console.log("Origen seleccionado: Base de datos");
+    fetchFromDatabase();
   };
 
   return (
-    <div className="container-todos-select">
-      <div className="select-container">
-      <div className="select-container">
-        <p>Filtrar por origen:</p>
-        <select onChange={(e) => handleOrigenChange(e.target.value)}>
-          <option value="">Todos los orígenes</option>
-          <option value="api">API</option>
-          <option value="baseDatos">Base de datos</option>
-        </select>
-      </div>
-        <p>Filtrar por temperamento:</p>
-        <select onChange={(e) => handleTemperamentoChange(e.target.value)}>
-          <option value="">Todos los temperamentos</option>
-          {/* Aquí debes mapear los temperamentos disponibles */}
-        </select>
-      </div>
-      <div>
-        <p>Ordenar razas:</p>
-        <button onClick={handleOrdenRazaAlfabeticoChange}>
-           Razas por Orden alfabético {ordenRazaAlfabetico === "asc" ? "A-Z" : "Z-A"}
+    <div className="filtrado">
+      <div className="container-todos-select">
+        <div className="select">
+          <p>Ordenar por peso</p>
+          <select
+            className="input-buscar-filtrado"
+            value={peso}
+            onChange={pesoSelectedChange}
+          >
+            <option value="">Peso</option>
+            <option value="liviano-pesado">Peso de mayor a menor</option>
+            <option value="pesado-liviano">Peso de menor a mayor</option>
+          </select>
+        </div>
+        <div className="select">
+          <p>Ordenar alfabéticamente</p>
+          <select
+            className="input-buscar-filtrado"
+            value={orderAlfabet}
+            onChange={alfabetSelectedChange}
+          >
+            <option value="">A-Z</option>
+            <option value="asc-desc">Ascendente</option>
+            <option value="desc-asc">Descendente</option>
+          </select>
+        </div>
+        <div className="select">
+          <p>Filtrar por temperamento</p>
+          <select
+            className="input-buscar-filtrado"
+            value={temperamentSelected}
+            onChange={temperamentChange}
+          >
+            <option value="">Temperamentos</option>
+            {temperaments.length > 0 ? (
+              temperaments.map((el) => (
+                <option key={el.id} value={el.name}>
+                  {el.name}
+                </option>
+              ))
+            ) : (
+              <option disabled>No hay temperamentos disponibles</option>
+            )}
+          </select>
+        </div>
+        <div className="select">
+          <p>Filtrar por raza</p>
+          <select
+            className="input-buscar-filtrado"
+            value={razaSelected}
+            onChange={razaChange}
+          >
+            <option value="">Razas</option>
+            {razas.length > 0 ? (
+              razas.map((raza) => (
+                <option key={raza.id} value={raza.name}>
+                  {raza.name}
+                </option>
+              ))
+            ) : (
+              <option disabled>No hay razas disponibles</option>
+            )}
+          </select>
+        </div>
+        <div className="select">
+          <p>Filtrar por origen</p>
+          <select
+            className="input-buscar-filtrado"
+            value={origenSelected}
+            onChange={(e) => {
+              setOrigenSelected(e.target.value);
+              console.log("Origen seleccionado:", e.target.value);
+              if (e.target.value === "api") {
+                fetchFromApi();
+              } else if (e.target.value === "database") {
+                fetchFromDatabase();
+              }
+            }}
+          >
+            <option value="">Origen</option>
+            <option value="api">API</option>
+            <option value="database">Base de datos</option>
+          </select>
+        </div>
+
+        <button className="reset-button" onClick={handleReset}>
+          Resetear <br />filtros
         </button>
       </div>
-      <div>
-        <p>Ordenar por peso:</p>
-        <button onClick={handleOrdenPesoChange}>
-          {ordenPeso === "asc" ? "Ascendente" : "Descendente"}
-        </button>
-      </div>
+      {razas.length === 0 && (
+        <p className="no-perros-msg">No hay perros guardados en la base de datos</p>
+      )}
     </div>
   );
-}
+};
 
 export default FiltrosBuscar;

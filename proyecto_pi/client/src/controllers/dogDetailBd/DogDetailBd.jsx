@@ -1,39 +1,39 @@
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
 import axios from "axios";
-import "./DogDetail.css";
-import { useSelector } from "react-redux";
+// import "./DogDetail.css";
 
-function DogDetail() {
-  const temperaments = useSelector((state) => state.temperaments);
+function DogDetailBd() {
   const [dogDetail, setDogDetail] = useState({
     name: "",
-    temperament: "",
     peso: "",
     años_vida: "",
     altura: "",
-    imagen: "",
-    imagenUrl:"",
+    imagenURL: "",
+    
   });
-  let { id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     traerDetalles();
-  }, []);
+  }, [id]);
 
   const traerDetalles = () => {
     axios
       .get(`http://localhost:3001/dogs/${id}`)
       .then((res) => {
         console.log(res);
+        const { name, temperaments, altura, peso, años_vida, imagenURL } = res.data;
         setDogDetail({
-          name: res.data.name,
-          temperament: res.data.temperament || res.data.temperamento,
-          altura: res.data.height?.metric || res.data.altura || "desconocida",
-          peso: res.data.weight?.metric || res.data.peso || "desconocida",
-          años_vida: res.data.life_span || res.data.años_vida || "desconocida",
-          imagen: `https://cdn2.thedogapi.com/images/${res.data.reference_image_id}.jpg`,
-          imagenUrl: res.data.imagenURL,
+          name: name || "",
+          temperament: temperaments?.map(temperament => temperament.name).join(", ") || "",
+          altura: altura || "",
+          peso: peso || "",
+          años_vida: años_vida || "",
+          imagenURL: imagenURL || "",
+          
+
+
         });
       })
       .catch((error) => {
@@ -45,20 +45,19 @@ function DogDetail() {
     <div className="detail">
       <img
         className="img"
-        src={dogDetail.imagen}
+        src={dogDetail.imagenURL}
         alt={`Imagen de ${dogDetail.name}`}
       />
 
       <div className="descripcion-perro">
         <h2 className="nombre-id">
-          {" "}
           {`Detalles de ${dogDetail.name} Id: ${id}`}
         </h2>
         <div>
-          {" "}
-          <p className="descripcion">¡Hola! soy un adorable {dogDetail.name}</p>
+          <p className="descripcion">¡Hola! Soy un adorable {dogDetail.name}</p>
           <p className="descripcion">
-            Mis temperamentos son una mezcla de <br /> {dogDetail.temperament}
+            Mis temperamentos son una mezcla de <br />
+            {dogDetail.temperament}
           </p>
           <p className="descripcion">
             En cuanto a mi tamaño, <br />
@@ -69,7 +68,7 @@ function DogDetail() {
           </p>
           <p className="descripcion">
             Y lo mejor de todo es que tengo una esperanza <br />
-            de vida promedio de {dogDetail.años_vida}
+            de vida promedio de {dogDetail.años_vida}.
           </p>
         </div>
       </div>
@@ -77,4 +76,4 @@ function DogDetail() {
   );
 }
 
-export default DogDetail;
+export default DogDetailBd;

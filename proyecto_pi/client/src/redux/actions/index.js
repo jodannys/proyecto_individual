@@ -1,124 +1,139 @@
-// import axios from "axios";
 
-// // Acción para buscar perros por nombre
-// // export const searchDogs = (name) => async (dispatch) => {
-// //     try {
-// //         const res = await axios.get(`http://localhost:3001/search?name=${name}`);
-// //         if (res.data.length === 0) {
-// //             alert("No se encontró el perro");
-// //         } else {
-// //             dispatch({
-// //                 type: "SEARCH_DOGS",
-// //                 payload: res.data,
-// //             });
-// //         }
-// //     } catch (error) {
-// //         console.error(error);
-// //         alert("No se encontró el perro");
-// //     }
-// // };
-// // Acción para buscar perros por nombre
-// export const searchDogs = (name) => async (dispatch) => {
-//     try {
-//         const res = await axios.get(`http://localhost:3001/search?name=${name}`);
-//         if (res.data.length === 0) {
-//             // Manejar caso donde no se encuentra el perro buscado
-//             alert("El perro buscado no está disponible");
-//         } else {
-//             dispatch({
-//                 type: "SEARCH_DOGS_SUCCESS",
-//                 payload: res.data,
-//             });
-//         }
-//     } catch (error) {
-//         console.error(error);
-//         // Manejar errores de red u otros errores inesperados
-//         alert("Ocurrió un error al buscar el perro");
-//     }
-// };
-
-// // Acción para cargar los temperamentos
-// export const loadTemperaments = () => async (dispatch) => {
-//     try {
-//         const res = await axios.get("http://localhost:3001/temperamentos");
-//         dispatch({
-//             type: "ADD_TEMPERAMENTS",
-//             payload: res.data,
-//         });
-//     } catch (error) {
-//         console.error(error);
-//     }
-// };
-
-// // Acción para cargar las razas de perros
-// export const loadDogBreeds = () => async (dispatch) => {
-//     try {
-//         const res = await axios.get("http://localhost:3001/dogs");
-//         dispatch({
-//             type: "ADD_DOGS",
-//             payload: res.data,
-//         });
-//     } catch (error) {
-//         console.error(error);
-//     }
-// };
-
-// // Acción para ordenar perros de manera ascendente por peso
-// export const orderLightToHeavy = () => ({
-//     type: "ordenar-liviano-pesado",
+// export const addTemperaments = (temperaments) => ({
+//   type: "ADD_TEMPERAMENTS",
+//   payload: temperaments,
 // });
 
-// // Acción para ordenar perros de manera descendente por peso
-// export const orderHeavyToLight = () => ({
-//     type: "ordenar-pesado-liviano",
+// // Acción para filtrar perros por temperamento
+// export const filtrarPorTemperamento = (temperament) => ({
+//   type: "FILTRAR_POR_TEMPERAMENTO",
+//   payload: temperament,
 // });
 
-// // Acción para ordenar perros alfabéticamente de A-Z
-// export const sortAlphabeticallyAsc = () => ({
-//     type: "ordenar-asc-desc",
+// // Acción para agregar razas al estado
+// export const addRazas = (razas) => ({
+//   type: "ADD_RAZAS",
+//   payload: razas,
 // });
 
-// // Acción para ordenar perros alfabéticamente de Z-A
-// export const sortAlphabeticallyDesc = () => ({
-//     type: "ordenar-desc-asc",
+// // Acción para buscar perros y actualizar la lista
+// export const searchDogs = (dogs) => ({
+//   type: "SEARCH_DOGS",
+//   payload: dogs,
 // });
-// actions.js
-export const filterByTemperament = (temperament) => ({
+
+// // Acción para agregar perros al estado
+// export const addDogs = (dogs) => ({
+//   type: "ADD_DOGS",
+//   payload: dogs,
+// });
+
+// // Acciones para ordenar perros por peso
+// export const ordenarLivianoPesado = () => ({
+//   type: "ordenar-liviano-pesado",
+// });
+
+// export const ordenarPesadoLiviano = () => ({
+//   type: "ordenar-pesado-liviano",
+// });
+
+// // Acciones para ordenar perros alfabéticamente
+// export const ordenarAscendente = () => ({
+//   type: "ordenar-asc-desc",
+// });
+
+// export const ordenarDescendente = () => ({
+//   type: "ordenar-desc-asc",
+// });
+
+// // Acción para resetear todos los filtros
+// export const resetFilters = () => ({
+//   type: "RESET_FILTERS",
+// });
+
+
+import axios from "axios";
+
+export const addTemperaments = (temperaments) => ({
+  type: "ADD_TEMPERAMENTS",
+  payload: temperaments,
+});
+
+// Acción para filtrar perros por temperamento
+export const filtrarPorTemperamento = (temperament) => ({
   type: "FILTRAR_POR_TEMPERAMENTO",
   payload: temperament,
 });
 
-export const fetchDogsSuccess = (dogs) => ({
-    type: "FETCH_DOGS_SUCCESS",
-    payload: dogs,
-  });
-  export const fetchRazasSuccess = (razas) => ({
-    type: "ADD_RAZAS",
-    payload: razas,
-  });
-  
-  export const fetchDogByIdSuccess = (dog) => ({
-    type: "FETCH_DOG_BY_ID_SUCCESS",
-    payload: dog,
-  });
-  
-  export const fetchDogByNameSuccess = (dogs) => ({
-    type: "FETCH_DOGS_BY_NAME_SUCCESS",
-    payload: dogs,
-  });
-  
-  export const addDogSuccess = (dog) => ({
-    type: "ADD_DOG_SUCCESS",
-    payload: dog,
-  });
-  
-  export const fetchTemperamentsSuccess = (temperaments) => ({
-    type: "FETCH_TEMPERAMENTS_SUCCESS",
-    payload: temperaments,
-  });
-  
-  
-  export const setError = (error) => ({
-    type: "SET_ERROR",
-    payload: error,
-  });
+// Acción para agregar razas al estado
+export const addRazas = (razas) => ({
+  type: "ADD_RAZAS",
+  payload: razas,
+});
+
+// Acción para buscar perros y actualizar la lista
+export const searchDogs = (dogs) => ({
+  type: "SEARCH_DOGS",
+  payload: dogs,
+});
+
+// Acción para agregar perros al estado
+export const addDogs = (dogs) => ({
+  type: "ADD_DOGS",
+  payload: dogs,
+});
+
+// Acciones para ordenar perros por peso
+export const ordenarLivianoPesado = () => ({
+  type: "ordenar-liviano-pesado",
+});
+
+export const ordenarPesadoLiviano = () => ({
+  type: "ordenar-pesado-liviano",
+});
+
+// Acciones para ordenar perros alfabéticamente
+export const ordenarAscendente = () => ({
+  type: "ordenar-asc-desc",
+});
+
+export const ordenarDescendente = () => ({
+  type: "ordenar-desc-asc",
+});
+
+// Acción para resetear todos los filtros
+export const resetFilters = () => ({
+  type: "RESET_FILTERS",
+});
+
+export const addDogsFromApi = (dogs) => ({
+  type: "ADD_DOGS_FROM_API",
+  payload: dogs,
+});
+
+export const addDogsFromDatabase = (dogs) => ({
+  type: "ADD_DOGS_FROM_DATABASE",
+  payload: dogs,
+});
+
+export const fetchDogsFromApi = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("http://localhost:3001/dogs");
+      dispatch(addDogsFromApi(response.data));
+    } catch (error) {
+      console.error("Error fetching dogs from API:", error);
+    }
+  };
+};
+
+export const fetchDogsFromDatabase = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("http://localhost:3001/perros");
+      dispatch(addDogsFromDatabase(response.data));
+    } catch (error) {
+      console.error("Error fetching dogs from database:", error);
+    }
+  };
+};

@@ -1,75 +1,82 @@
-.boton-agregar-perroo {
-    height: 40px;
-    background-color: #6D8BE8;
-    color: white;
-    border: none;
-    width: 132px;
-    height: 29px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 15px;
-    font-family: 'Josefin Sans', sans-serif;
+.container-temperamento {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.20rem;
+  background-image: url("../../assets/img/pngwing.com.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 30px;
 }
-.image-preview {
-    max-width: 300px; /* Establece el ancho máximo */
-    max-height: 200px; /* Establece la altura máxima */
-    width: auto; /* Permite que la imagen mantenga su relación de aspecto */
-    height: auto; /* Permite que la imagen mantenga su relación de aspecto */
-    background-color: none;
-  }
-  
-.tabs {
-    height: 50px;
-    padding-top: 15px;
-    padding-left: 154px;
-
+.formulario-registro {
+  flex-direction: column;
+  padding: 50px;
+  box-shadow: 3px 0px 30px rgba(163, 163, 163, 1);
+  background-color: #c4c1a7d4;
+  border-radius: 10px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.boton-agregar-temp {
-    height: 40px;
-    background-color: #6D8BE8;
-    color: white;
-    border: none;
-    width: 170px;
-    height: 32px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 15px;
-    font-family: 'Josefin Sans', sans-serif;
+.caracteristicas {
+  font-weight: bold;
+  text-align: center;
+  font-size: 25px;
+}
+.success-message {
+  text-align: center;
+  color: #05fa15;
+  font-weight: bold;
+  font-size: 25px;
+  margin-top: 1px;
+}
+.input-de-busqueda {
+  width: 100%;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 30px;
+  text-align: center;
+  border: 3px solid #ccc;
+  border-color: #0fc496;
+  align-items: center;
 }
 
-.boton-agregar {
-    height: 40px;
-    background-color: #6D8BE8;
-    color: white;
-    border: none;
-    width: 102px;
-    height: 29px;
-    margin-top: 20px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 15px;
-    font-family: 'Josefin Sans', sans-serif;
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.agregarPerro {
-    height: 396px;
-    padding-left: 15%;
+.titulo {
+  font-size: 2.5rem;
+  margin-top: 10px;
+}
+.boton-perro {
+  background-color: #1c02dc;
+  color: #ffffff;
+  padding: 12px 50px;
+  border: none;
+  font-size: 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+  justify-content: center;
 }
 
-.container-amarilloo {
-    display: flex;
-    background-color: #FADE56;
-    height: 820px;
-    width: 730px;
-    border-radius: 4px;
-    margin-top: 8%;
-    margin-left: 22%;
-    align-items: baseline;
-    flex-direction: column;
+.boton-perro:hover {
+  background-color: #0fc496;
+}
+.botones-container {
+  display: flex;
+  justify-content: center;
 }
 
-.agregar-temperamento {
-    padding-left: 35%;
-    padding-top: 7%;
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }

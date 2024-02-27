@@ -1,9 +1,19 @@
+.pagination-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #0C969E;
+  padding: 1px;
+  box-shadow: 0px -3px 10px rgba(11, 11, 11, 0.1); /* Agregar sombra si se desea */
+}
+
 .pagination {
     display: flex;
     justify-content: center;
     list-style: none;
-    padding: 0;
-    margin: 20px 0;
+    padding: 10;
+    margin: 10px 0;
   }
   
   .page-item {
@@ -11,19 +21,22 @@
   }
   
   .page-link {
-    color: #333;
     text-decoration: none;
     padding: 5px 10px;
-    border: 1px solid #ccc;
+    color: #ffffff;
+    border: 1px solid #fdfdfd;
+    background-color: #8a8282;
     border-radius: 5px;
   }
   
+  
   .page-link:hover {
-    background-color: #f0f0f0;
+    background-color: #1CEDAE;
   }
   
   .page-link:focus {
+    background-color: #1CEDAE;
     outline: none;
-    box-shadow: 0 0 0 2px #ccc;
+    box-shadow: 0 0 0 4px #d30bed;
   }
   

@@ -1,50 +1,45 @@
 .navbar {
   border-radius: 10px;
   display: flex;
-  padding: 5px 10px; 
+  padding: 1px 10px;
   margin: 0;
   align-items: center;
-  background-color: #1cedae;
+  background-color: #0c969e;
   justify-content: center;
-  height: 90px; 
+  height: 90px;
 }
 
-
 .login {
-    display: flex;
-    border-radius: 5px;
-    padding: 1px;
-    justify-content: center;
-    align-items: center;
-  }
-  
- .login > * {
-  margin-right: 1rem;
+  font-family: "Sombras en luz", cursiva;
+  display: flex;
+  border-radius: 15px;
+  padding: 10px 25px;
+  justify-content: center;
+  align-items: center;
+  background-color: #1cedae;
+}
+
+.login > * {
+  margin-right: auto; 
 }
 
 @media screen and (max-width: 768px) {
   .navBar {
-    font-size: 16px;
+    font-size: 15px;
   }
-  
-  .login > * {
-    margin-right: 0.5rem;
-  }
-}
-  .logoContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
+  .login > * {
+    margin-right: auto;
+  }
 }
+
 .link {
-  color: #000000;
-  padding: 0;
-  font-size: 20px;
-  margin-right: 150px;
-  overflow: hidden;
-  z-index: 1; 
-  
+  font-size: 15px; 
+  margin-right: 100px; 
+  margin-left: auto; 
+  text-align: center;
+  background: none; 
+  border: none; 
 }
 
 
@@ -60,40 +55,56 @@
 .link:hover {
   color: #030303;
 }
- .navbar-item {
-   display: flex;
-   align-items: center;
-  }
-  
-  .icono {
-  position: absolute;
-  font-size: 130px;
-  color: #ae3dff; 
-  margin-right: 50px; 
+
+.navbar-item {
+  display: flex;
+  align-items: center;
 }
 
-.text1{
-  margin-left: 90px;
-  
+.icono,
+.icono2,
+.icono3,
+.icono4 {
+  font-size: 15px; 
+  padding: 10px 20px; 
+  position: relative;
+  display: inline-block;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: #9F4C8F;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  text-decoration: none;
+  vertical-align: middle;
+  margin-right: 10px;
 }
-.text2{
-  margin-left: 50px;
-  
-}
-.text3{
-  margin-left: 25px;
-  
-}
+
 .icono2 {
-  position: absolute;
-  font-size: 130px;
-  color: #c2ff05; 
-  
+  margin-bottom: -15px;
 }
-.icono3 {
-  position: absolute;
-  font-size: 130px;
-  color: #ff0534; 
-  
+
+.icono4 {
+  margin-left: 30px;
+
+}
+
+@media screen and (max-width: 768px) {
+  .icono,
+  .icono2,
+  .icono3,
+  .icono4 {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+}
+
+.icono:hover,
+.icono2:hover,
+.icono3:hover,
+.icono4:hover {
+  background-color: #e3e4e8;
+  color: #000000;
 }
 

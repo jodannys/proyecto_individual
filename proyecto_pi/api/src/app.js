@@ -12,11 +12,11 @@ const server = express();
 server.name = "API";
 
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
-server.use(bodyParser.json({ limit: "50mb" }));//funcion de parseo 
+server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -29,12 +29,11 @@ server.use((req, res, next) => {
 server.get("/api-url", (req, res) => {
   res.json({ API_URL });
 });
-server.use("/", getRouter); // Usa el enrutador GET
-server.use("/", postRouter); // Usa el enrutador POST
+server.use("/", getRouter);
+server.use("/", postRouter);
 
 // Error catching endware.
 server.use((err, req, res, next) => {
-  // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;
   console.error(err);

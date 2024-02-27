@@ -1,0 +1,64 @@
+.container-temperamentos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 60px;
+  align-items: center;
+  height: 10vh;
+
+}
+.nombre-del-temperamento {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  font-size: 3rem;
+  margin-top: 5%;
+  color: #ffffff;
+}
+
+.agregar-temperamento {
+  width: 300px;
+  box-shadow: 3px 0px 30px rgba(163, 163, 163, 1);
+  background-color: #c4c1a753;
+  display: block;
+  padding: 5%;
+  margin-bottom: 5px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.input-busqueda {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.boton-agregar-temp {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 105%;
+}
+
+.boton-agregar-temp:hover {
+  background-color: #0056b3;
+}
+
+.errores {
+  color: #f30018;
+  font-size: 20px;
+  margin-top: 16px;
+}

@@ -1,16 +1,17 @@
 const { DataTypes } = require('sequelize');
 
+
 module.exports = (sequelize) => {
   const Dog = sequelize.define('Dog', {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
+      autoIncrement: false,
     },
-    imagen: {
-      type: DataTypes.TEXT, // Cambiado a TEXT para almacenar la URL de la imagen
-      allowNull: false,
+    imagenURL: {
+      type: DataTypes.TEXT,
+      allowNull: true,
       validate: {
         isUrl: true,
       },
@@ -27,13 +28,14 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    años: {
+    años_vida: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
   }, {
-    timestamps: false // Corregido: timestamps debe estar dentro del segundo parámetro del define()
-  });
+    timestamps: true
+  })
+
 
   return Dog;
 };

@@ -1,0 +1,64 @@
+.container-home {
+  display: flex;
+  margin-top: 10px;
+}
+
+.image-container {
+  flex: 1;
+  text-align: center;
+}
+
+
+.text-container-home {
+  flex: 1;
+  margin-top: 10px;
+  text-align: center; 
+  padding: 50px;
+
+}
+
+.home-img {
+  max-width: 10%;
+  height: auto;
+  flex: 1;
+  padding: 350px;
+  background-image: url("../../assets/img/kisspng-dog-puppy-pet-sitting-cat-dogs-5aba195a3a6f85.4433606215221456262394.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.welcome-text {
+  font-size: 54px;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+  color: aliceblue;
+}
+
+.description {
+  font-size: 26px;
+  margin-bottom: 30px;
+  text-align: justify;
+  color: #07fed5;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.button-home {
+  padding: 10px 50px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-home:hover {
+  background-color: #07fed5;
+  color: black;
+}

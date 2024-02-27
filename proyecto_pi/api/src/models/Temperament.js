@@ -1,9 +1,7 @@
-const { DataTypes } = require("sequelize");
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+const { DataTypes } = require('sequelize');
+
 module.exports = (sequelize) => {
-  // defino el modelo
-  const Temperament = sequelize.define("temperament", {
+  const Temperament = sequelize.define('temperament', {
     id: {
       type: DataTypes.UUID,
       allowNull: false,
@@ -14,9 +12,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  },
-  {
-    timestamps: false // Corregido: timestamps debe estar dentro del segundo parámetro del define()
+  }, {
+    timestamps: false 
   });
 
   return Temperament;

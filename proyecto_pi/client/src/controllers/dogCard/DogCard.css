@@ -1,70 +1,90 @@
-.card-container {
-    margin-left: 20px;
-  height: auto;
+.card-container-card {
+  margin-left: 40px;
   display: flex;
-  flex-wrap: wrap;
+  max-height: 500px;
   gap: 1rem;
+  padding: 12px;
+  margin-top: 55px;
+  margin-bottom: 4rem;
+  width: 300px;
+  box-shadow: 3px 0px 20px rgba(163, 163, 163, 1);
+  background-color: #c4c1a75d;
+  border-radius: 10px;
+}
+.caja{
   display: inline-block;
-  padding: 1.5rem;
-  background-color: rgb(240, 240, 240);
-  margin-top: 5%;
-  margin-bottom: 1%;
-  
-  
+  flex-wrap: wrap;
+}
+
+.card-content {
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  word-wrap: break-word;
+}
+
+.card-container:hover {
+  background-color: #1cedae;
 }
 
 .titulo-card {
-    font-family: "Josefin Sans", sans-serif;
-    font-size: 19px;
-    margin: 0;
-    padding-top: 10px;
-    color: black;
-    flex: 1;
-    margin-right: 10px;
-    overflow-wrap: break-word;
-    width: 280px; 
+  font-size: 19px;
+  margin: 0;
+  padding-top: 10px;
+  color: black;
+  overflow-wrap: break-word;
 }
 
 .img-dog {
-    height: 200px;
-    width: 280px;
-    margin: 9px;
-    padding-top: 3px;
+  height: 200px;
+  width: 280px;
+  margin: 10px;
+  padding-top: 3px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
 }
 
+
+
 .temperamento-card {
-    font-family: "Josefin Sans", sans-serif;
   font-size: 18px;
   color: rgb(92, 92, 92);
   overflow-wrap: break-word;
-  margin-top: 5px;
+  margin-top: 20px;
   height: 200px;
   width: 280px;
-  margin-bottom: -20%;
-  
+  margin-bottom: -10%;
 }
-.dog-name{
-    font-size: 25px;
-    color: rgb(92, 92, 92);
-    overflow-wrap: break-word;
-    margin-top: 5px;
-    height: 200px;
-    width: 280px;
-    margin-bottom: -50%;
-   
+.dog-name {
+  font-size: 22px;
+  color: #453d3d;
+  overflow-wrap: break-word;
+  height: 30px;
+  width: 280px;
+  margin-top: 20px;
 }
 
 a:link,
 a:visited,
 a:active {
-    text-decoration: none;
+  text-decoration: none;
 }
-.text{
-    font-size: 20px;
-    color: rgb(0, 0, 0);
-    width: 280px; 
+.text {
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  width: 280px;
+}
+.dog-weight {
+  font-size: 15px;
+  margin-top: -60px;
+  text-align: center;
+  color: rgb(19, 3, 250);
+}
 
-}
-.dog-weight{
-    font-size: 15px;
+.dato-no-disponible {
+  font-size: 15px;
+  margin-top: -90px;
+  text-align: center;
+  color: rgb(250, 3, 3);
 }
