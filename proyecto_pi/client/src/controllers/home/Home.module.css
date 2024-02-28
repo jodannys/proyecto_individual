@@ -1,23 +1,21 @@
-.container-home {
+.container {
   display: flex;
   margin-top: 10px;
 }
 
-.image-container {
+.image {
   flex: 1;
   text-align: center;
 }
 
-
-.text-container-home {
+.text {
   flex: 1;
   margin-top: 10px;
-  text-align: center; 
+  text-align: center;
   padding: 50px;
-
 }
 
-.home-img {
+.home {
   max-width: 10%;
   height: auto;
   flex: 1;
@@ -28,7 +26,7 @@
   background-repeat: no-repeat;
 }
 
-.welcome-text {
+.welcome {
   font-size: 54px;
   font-weight: bold;
   margin-top: 1rem;
@@ -43,22 +41,23 @@
   color: #07fed5;
 }
 
-.button-container {
+.button {
   text-align: center;
 }
 
-.button-home {
-  padding: 10px 50px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.button-home:hover {
-  background-color: #07fed5;
-  color: black;
-}
+.boton {
+    background-color: #1c02dc;
+    color: #ffffff;
+    border: none;
+    font-size: 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    justify-content: center;
+    padding: 10px 50px; 
+    
+  }
+  .boton:hover {
+    background-color: #00a4b3;
+  }
+  

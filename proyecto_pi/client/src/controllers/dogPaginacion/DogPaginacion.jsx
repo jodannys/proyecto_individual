@@ -1,5 +1,5 @@
 import React from "react";
-import "./DogPaginacion.css";
+import styles from "./DogPaginacion.module.css";
 
 const DogPaginacion = ({ itemsPorPag, totalPosts, paginate }) => {
   const pageNumbers = [];
@@ -9,14 +9,11 @@ const DogPaginacion = ({ itemsPorPag, totalPosts, paginate }) => {
   }
 
   return (
-    <div className="pagination-container">
-      <ul className="pagination">
+    <div className={styles.container}>
+      <ul className={styles.pagination}>
         {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <button
-              className="page-link"
-              onClick={() => paginate(number)}
-            >
+          <li key={number} className={styles.page}>
+            <button className={styles.link} onClick={() => paginate(number)}>
               {number}
             </button>
           </li>

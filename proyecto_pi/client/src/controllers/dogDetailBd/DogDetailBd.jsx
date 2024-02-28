@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-// import "./DogDetail.css";
+import styles from "./DogDetailBd.module.css";
 
 function DogDetailBd() {
   const [dogDetail, setDogDetail] = useState({
@@ -10,7 +10,6 @@ function DogDetailBd() {
     años_vida: "",
     altura: "",
     imagenURL: "",
-    
   });
   const { id } = useParams();
 
@@ -20,20 +19,20 @@ function DogDetailBd() {
 
   const traerDetalles = () => {
     axios
-      .get(`http://localhost:3001/dogs/${id}`)
+    .get(`${process.env.SERVER_URL}/dogs/${id}`)
       .then((res) => {
         console.log(res);
-        const { name, temperaments, altura, peso, años_vida, imagenURL } = res.data;
+        const { name, temperaments, altura, peso, años_vida, imagenURL } =
+          res.data;
         setDogDetail({
           name: name || "",
-          temperament: temperaments?.map(temperament => temperament.name).join(", ") || "",
+          temperament:
+            temperaments?.map((temperament) => temperament.name).join(", ") ||
+            "",
           altura: altura || "",
           peso: peso || "",
           años_vida: años_vida || "",
           imagenURL: imagenURL || "",
-          
-
-
         });
       })
       .catch((error) => {
@@ -42,31 +41,33 @@ function DogDetailBd() {
   };
 
   return (
-    <div className="detail">
+    <div className={styles.detail}>
       <img
-        className="img"
+        className={styles.img}
         src={dogDetail.imagenURL}
         alt={`Imagen de ${dogDetail.name}`}
       />
 
-      <div className="descripcion-perro">
-        <h2 className="nombre-id">
+      <div className={styles.descripcion.perro}>
+        <h2 className={styles.nombre.id}>
           {`Detalles de ${dogDetail.name} Id: ${id}`}
         </h2>
         <div>
-          <p className="descripcion">¡Hola! Soy un adorable {dogDetail.name}</p>
-          <p className="descripcion">
+          <p className={styles.descripcion}>
+            ¡Hola! Soy un adorable {dogDetail.name}
+          </p>
+          <p className={styles.descripcion}>
             Mis temperamentos son una mezcla de <br />
             {dogDetail.temperament}
           </p>
-          <p className="descripcion">
+          <p className={styles.descripcion}>
             En cuanto a mi tamaño, <br />
             suelo medir entre {dogDetail.altura} centímetros de altura.
           </p>
-          <p className="descripcion">
+          <p className={styles.descripcion}>
             Mi peso oscila típicamente entre {dogDetail.peso} kilogramos.
           </p>
-          <p className="descripcion">
+          <p className={styles.descripcion}>
             Y lo mejor de todo es que tengo una esperanza <br />
             de vida promedio de {dogDetail.años_vida}.
           </p>

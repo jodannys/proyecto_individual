@@ -1,8 +1,5 @@
-
-
-
 import React from "react";
-import "./FiltrosDog.css";
+import styles from "./FiltrosDog.module.css";
 
 const FiltrosBuscar = ({
   peso,
@@ -46,12 +43,12 @@ const FiltrosBuscar = ({
   };
 
   return (
-    <div className="filtrado">
-      <div className="container-todos-select">
-        <div className="select">
+    <div className={styles.filtrado}>
+      <div className={styles.container}>
+        <div className={styles.select}>
           <p>Ordenar por peso</p>
           <select
-            className="input-buscar-filtrado"
+            className={styles.input}
             value={peso}
             onChange={pesoSelectedChange}
           >
@@ -60,10 +57,10 @@ const FiltrosBuscar = ({
             <option value="pesado-liviano">Peso de menor a mayor</option>
           </select>
         </div>
-        <div className="select">
+        <div className={styles.select}>
           <p>Ordenar alfabéticamente</p>
           <select
-            className="input-buscar-filtrado"
+            className={styles.input}
             value={orderAlfabet}
             onChange={alfabetSelectedChange}
           >
@@ -72,10 +69,10 @@ const FiltrosBuscar = ({
             <option value="desc-asc">Descendente</option>
           </select>
         </div>
-        <div className="select">
+        <div className={styles.select}>
           <p>Filtrar por temperamento</p>
           <select
-            className="input-buscar-filtrado"
+            className={styles.input}
             value={temperamentSelected}
             onChange={temperamentChange}
           >
@@ -91,10 +88,10 @@ const FiltrosBuscar = ({
             )}
           </select>
         </div>
-        <div className="select">
+        <div className={styles.select}>
           <p>Filtrar por raza</p>
           <select
-            className="input-buscar-filtrado"
+            className={styles.input}
             value={razaSelected}
             onChange={razaChange}
           >
@@ -110,10 +107,10 @@ const FiltrosBuscar = ({
             )}
           </select>
         </div>
-        <div className="select">
+        <div className={styles.select}>
           <p>Filtrar por origen</p>
           <select
-            className="input-buscar-filtrado"
+            className={styles.input}
             value={origenSelected}
             onChange={(e) => {
               setOrigenSelected(e.target.value);
@@ -131,13 +128,11 @@ const FiltrosBuscar = ({
           </select>
         </div>
 
-        <button className="reset-button" onClick={handleReset}>
-          Resetear <br />filtros
+        <button className={styles.reset} onClick={handleReset}>
+          Resetear <br />
+          filtros
         </button>
       </div>
-      {razas.length === 0 && (
-        <p className="no-perros-msg">No hay perros guardados en la base de datos</p>
-      )}
     </div>
   );
 };

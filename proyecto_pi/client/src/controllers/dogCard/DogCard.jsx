@@ -2,7 +2,9 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import "./DogCard.css";
+import styles from "./DogCard.module.css";
+
+
 
 function DogCard({ id, name, temperament, weight, img }) {
   const parseWeight = (weight) => {
@@ -26,42 +28,51 @@ function DogCard({ id, name, temperament, weight, img }) {
     !isNaN(parseFloat(weight.metric));
 
   // Obtiene la URL de la imagen
-  const imageUrl = `https://cdn2.thedogapi.com/images/${img}.jpg`;
+  const imageUrl = `${process.env.URL_API}/images/${img}.jpg`;
+ 
 
   return (
-    <div className="caja">
-    <div className="card-container-card">
-      <Link to={`/detail/${id}`} className="card-link">
-        <h2 className="dog-name">
-          {" "}
-          <FontAwesomeIcon icon={faPaw} /> {name}
-        </h2>
-        {img ? (
-          <img className="img-dog" src={imageUrl} alt={`Imagen de ${name}`} />
-        ) : (
-          <div className="img-dog-placeholder">
-            <p>Imagen no disponible</p>
-          </div>
-        )}
-        <div className="card-content">
-          {temperament ? (
-            <p className="temperamento-card">
-              <strong className="text"> Temperamento:</strong>
-              <br />{" "}
-              {Array.isArray(temperament) ? temperament.join(",") : temperament}
-            </p>
+    <div className={styles.caja}>
+      <div className={styles.container}>
+        <Link to={`/detail/${id}`} className={styles.link}>
+          <h2 className={styles.name}>
+            {" "}
+            <FontAwesomeIcon icon={faPaw} /> {name}
+          </h2>
+          {img ? (
+            <img
+              className={styles.img}
+              src={imageUrl}
+              alt={`Imagen de ${name}`}
+            />
           ) : (
-            <p className="temperamento-card">Temperamento no disponible</p>
+            <div className={styles.placeholder}>
+              <p>Imagen no disponible</p>
+            </div>
           )}
-          {!isValidWeight && <p className="dato-no-disponible">Peso no disponible</p>}
-        </div>
-        {isValidWeight && (
-          <p className="dog-weight">
-            <strong>Peso:</strong> {parseWeight(weight)}
-          </p>
-        )}
-      </Link>
-    </div>
+          <div className={styles.content}>
+            {temperament ? (
+              <p className={styles.temperamento}>
+                <strong className={styles.text}> Temperamento:</strong>
+                <br />{" "}
+                {Array.isArray(temperament)
+                  ? temperament.join(",")
+                  : temperament}
+              </p>
+            ) : (
+              <p className={styles.temperamento}>Temperamento no disponible</p>
+            )}
+            {!isValidWeight && (
+              <p className={styles.no.disponible}>Peso no disponible</p>
+            )}
+          </div>
+          {isValidWeight && (
+            <p className={styles.weight}>
+              <strong>Peso:</strong> {parseWeight(weight)}
+            </p>
+          )}
+        </Link>
+      </div>
     </div>
   );
 }

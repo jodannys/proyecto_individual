@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import styles from "./CardBd.module.css";
+const URL = process.env.SERVER_URL;
+
 const parseWeight = (weight) => {
   return `${weight} kg`;
 };
@@ -25,13 +28,9 @@ const CardBd = ({
           console.error("ID del perro no disponible");
           return;
         }
-        const response = await fetch(
-          `http://localhost:3001/perros/${id}/temperamentos`
-        );
+        const response = await fetch(`${URL}/perros/${id}/temperamentos`);
         if (!response.ok) {
-          throw new Error(
-            "Error al obtener los temperamentos del perro"
-          );
+          throw new Error("Error al obtener los temperamentos del perro");
         }
         const data = await response.json();
         console.log("Temperamentos del perro obtenidos:", data);
@@ -47,32 +46,31 @@ const CardBd = ({
 
     // Realizar la solicitud solo una vez (cuando el componente se monte)
     fetchDogTemperaments();
-  }, [id]); // Añadir id como dependencia para que el efecto se ejecute cuando cambie el ID del perro
+  }, [id]);
 
   return (
-    <div className="caja">
-      <div className="card-container-card">
-        <Link to={`/detailBd/${id}`} className="card-link">
-          {/* <p>ID: {id}</p> */}
-          <h2 className="dog-name">
+    <div className={styles.caja}>
+      <div className={styles.container}>
+        <Link to={`/detailBd/${id}`} className={styles.link}>
+          <h2 className={styles.name}>
             {" "}
             <FontAwesomeIcon icon={faPaw} /> {name}
           </h2>
           {imagenURL ? (
             <img
-              className="img-dog"
+              className={styles.img}
               src={imagenURL}
               alt={`Imagen de ${name}`}
             />
           ) : (
-            <div className="img-dog-placeholder">
+            <div className={styles.placeholder}>
               <p>Imagen no disponible</p>
             </div>
           )}
 
-          <div className="card-content">
-            <p className="temperamento-card">
-              <strong className="text"> Temperamento:</strong>
+          <div className={styles.content}>
+            <p className={styles.temperamento}>
+              <strong className={styles.text}> Temperamento:</strong>
               <br />{" "}
               {dogTemperaments && dogTemperaments.length > 0 ? (
                 dogTemperaments.map((temperament, index) => (
@@ -87,15 +85,14 @@ const CardBd = ({
             </p>
 
             {!peso && (
-              <p className="dato-no-disponible">Peso no disponible</p>
+              <p className={styles.no.disponible}>Peso no disponible</p>
             )}
           </div>
           {peso && (
-            <p className="dog-weight">
+            <p className={styles.weight}>
               <strong>Peso:</strong> {parseWeight(peso)}
             </p>
           )}
-        
         </Link>
       </div>
     </div>

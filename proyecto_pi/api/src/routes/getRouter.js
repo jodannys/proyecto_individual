@@ -26,10 +26,10 @@ getRouter.get("/temperamentos", getTemperamentos);
 // Obtener detalles del perro
 getRouter.get("/dogs/:id", getDetail);
 
-// Obtener perros de la base d edatos
+// Obtener perros de la base de datos
 getRouter.get("/perros", getsearchDogs);
 
-
+// Obtener perros de la base de datos con los temperamentos
 getRouter.get("/perros/:id/temperamentos", getTemperamentosBd );
 
 

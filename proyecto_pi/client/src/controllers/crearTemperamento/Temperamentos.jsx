@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Temperamentos.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import styles from "./CrearTemperamento.module.css";
+const URL = process.env.SERVER_URL;
+
 
 function TemperamentForm() {
   const [temperamentonuevo, setTemperamentonuevo] = useState("");
@@ -40,7 +44,7 @@ function TemperamentForm() {
       );
 
       const response = await axios.post(
-        "http://localhost:3001/createtemperament",
+        `${URL}/createtemperament`,
         {
           temperamentonuevo: temperamentonuevo.trim(),
         }
@@ -69,23 +73,20 @@ function TemperamentForm() {
 
   return (
     <div>
-      <label className="nombre-del-temperamento">
-        {" "}
-        Agrega un nuevo temperamento
-      </label>
-      <div className="container-temperamentos">
-        <div className="agregar-temperamento">
+      <label className={styles.nombre}> ¡Agrega un nuevo temperamento!</label>
+      <div className={styles.container}>
+        <div className={styles.agregar}>
           <input
-            className="input-busqueda"
+            className={styles.input}
             type="text"
             value={temperamentonuevo}
             placeholder="Nombre del nuevo temperamento"
             onChange={(e) => setTemperamentonuevo(e.target.value)}
           />
-          <button className="boton-agregar-temp" onClick={crearTemperamento}>
-            Crear temperamento
+          <button className={styles.boton} onClick={crearTemperamento}>
+            <FontAwesomeIcon icon={faPaw} /> Crear temperamento
           </button>
-          {error && <p className="errores">{error}</p>}
+          {error && <p className={styles.error}>{error}</p>}
           {successMessage && <p className="success">{successMessage}</p>}
         </div>
       </div>

@@ -8,13 +8,13 @@
   padding-top: 150px;
 }
 
-.nombre-id {
+.nombre.id {
   font-size: 30px;
   display: flex;
   align-items: center;
   color: rgb(255, 255, 255);
 }
-.descripcion-perro {
+.descripcion.perro {
   margin-top: -30px;
 }
 .img {
@@ -40,6 +40,5 @@
   justify-content: center;
   box-shadow: 3px 0px 10px rgba(163, 163, 163, 1);
   background-color: #c4c1a791;
-
   border-radius: 10%;
 }

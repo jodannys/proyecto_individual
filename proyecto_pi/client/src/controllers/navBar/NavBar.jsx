@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
-import "./NavBar.css";
+import styles from "./NavBar.module.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -16,31 +16,30 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="navbar">
-        <ul className="login">
-          <li className="navbar-item">
-            <Link to="/buscar" className="link" onClick={resetPage}>
-              <span className="icono">Inicio</span>
+      <nav className={styles.container}>
+        <ul className={styles.login}>
+          <li className={styles.navbar}>
+            <Link to="/buscar" className={styles.link} onClick={resetPage}>
+              <span className={styles.icono}>Inicio</span>
             </Link>
 
-            <div className="navbar-item">
-              <Link to="/dogAgregar" className="link">
-                <span className="icono3">Crear Perro</span>
+            <div className={styles.navbar}>
+              <Link to="/dogAgregar" className={styles.link}>
+                <span className={styles.icono3}>Crear Perro</span>
               </Link>
             </div>
-            <div className="navbar-item">
-              <Link to="/temperamento" className="link">
-                <span className="icono2">Crear temperamento</span>
+            <div className={styles.navbar}>
+              <Link to="/temperamento" className={styles.link}>
+                <span className={styles.icono2}>Crear temperamento</span>
                 <p> </p>
               </Link>
             </div>
           </li>
-  
-          <SearchBar className="search-bar" />
-                
 
-          <button className="link" onClick={handleLogout}>
-            <span className="icono4">Salir</span>
+          <SearchBar />
+
+          <button className={styles.link} onClick={handleLogout}>
+            <span className={styles.icono4}>Salir</span>
           </button>
         </ul>
       </nav>

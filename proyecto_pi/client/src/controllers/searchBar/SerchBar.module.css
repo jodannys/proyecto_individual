@@ -5,7 +5,6 @@
   font-family: "Share Tech Mono", monospace;
   margin: 1px auto;
   position: relative;
-
 }
 
 .inputs {
@@ -14,7 +13,6 @@
   font-size: 1.2vw;
   padding: 5px 15px;
   width: auto;
-
 }
 .inputs::-webkit-search-cancel-button {
   display: none;
@@ -28,11 +26,10 @@
 @media screen and (max-width: 768px) {
   .inputs {
     width: 100%;
-    font-size: 20px; /* Ajustado para pantalla pequeña */
-    padding: 10px; /* Ajustado para pantalla pequeña */
+    font-size: 20px;
+    padding: 10px;
   }
 }
-
 
 .search {
   color: #ff0000;
@@ -49,9 +46,7 @@
   background-color: rgb(247, 246, 246);
 }
 @media screen and (max-width: 768px) {
-  .search{
-    
-    font-size: 15px; 
-  
+  .search {
+    font-size: 15px;
   }
 }

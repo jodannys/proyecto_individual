@@ -1,0 +1,45 @@
+.detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    height: 50vh;
+    position: relative;
+    padding-top: 150px;
+  }
+  
+  .nombre.id {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    color: rgb(255, 255, 255);
+  }
+  .descripcion.perro {
+    margin-top: -30px;
+  }
+  .img {
+    border-radius: 0px 134px 132px 131px;
+    -webkit-border-radius: 0px 134px 132px 131px;
+    -moz-border-radius: 0px 134px 132px 131px;
+    border: 20px double #6e6c6e;
+    height: 450px;
+    width: 550px;
+    margin: 50px;
+    box-shadow: 3px 0px 30px rgb(231, 238, 235);
+  }
+  
+  .descripcion {
+    padding: 2%;
+    font-size: 20px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+    color: #080808;
+    justify-content: center;
+    box-shadow: 3px 0px 10px rgba(163, 163, 163, 1);
+    background-color: #c4c1a791;
+    border-radius: 10%;
+  }
+  

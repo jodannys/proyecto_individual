@@ -3,10 +3,9 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
-import "./searchBar.css";
+import styles from "./SerchBar.module.css";
 
 function SearchBar() {
-
   const dispatch = useDispatch();
   const [buscar, setBuscar] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -27,7 +26,7 @@ function SearchBar() {
       return;
     }
     axios
-      .get(`http://localhost:3001/search?name=${buscar}`)
+      .get(`${process.env.SERVER_URL}/search?name=${buscar}`)
       .then((res) => {
         console.log("Respuesta del servidor:", res);
         if (res.data.length === 0) {
@@ -52,22 +51,18 @@ function SearchBar() {
       handleSearch();
     }
   };
-
-
-
   return (
-    <div className="container">
+    <div className={styles.container}>
       <input
-        className="inputs"
+        className={styles.inputs}
         placeholder="Buscar por nombre"
         value={buscar}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <button className="search" onClick={handleSearch}>
+      <button className={styles.search} onClick={handleSearch}>
         <FontAwesomeIcon icon={faPaw} />
       </button>
-   
     </div>
   );
 }

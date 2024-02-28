@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
-import "./DogAgregar.css";
+import styles from "./DogAgregar.module.css"
 
 function DogAgregar() {
   const [temperaments, setTemperaments] = useState([]);
@@ -30,7 +31,7 @@ function DogAgregar() {
   useEffect(() => {
     const fetchTemperaments = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/temperamentos");
+        const response = await axios.get(`${process.env.SERVER_URL}/temperamentos`);
         setTemperaments(response.data);
       } catch (error) {
         console.log("Error al obtener los temperamentos:", error);
@@ -52,7 +53,7 @@ function DogAgregar() {
 
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await axios.post('http://localhost:3001/createdog', {
+        const response = await axios.post(`${process.env.SERVER_URL}/createdog`,{
           ...perroNuevo,
           temperaments: selectedTemperaments,
         });
@@ -110,29 +111,35 @@ function DogAgregar() {
     }
   };
   
+
   return (
-    <div className="container-temperamento">
-      <form className="formulario-registro" onSubmit={handleSubmit}>
-        <p className="titulo">¡Crea nuevos perros!</p>
-      {successMessage && <p className="success-message">{successMessage}</p>}
-        <div className="descripcion-perro">
-          <div>
-            <p className="caracteristicas">Nombre:</p>
+    <div className={styles.container}>
+      <form className={styles.formulario} onSubmit={handleSubmit}>
+        <p className={styles.titulo}>
+          <br />
+          ¡Crea nuevos perros!
+        </p>
+        <div className={styles.descripcion}></div>
+        {successMessage && <p className={styles.message}>{successMessage}</p>}
+        <div>
+          <div className={styles.refe}>
+            <p className={styles.caracteristicas}>Nombre de la raza:</p>
             <input
-              className="input-de-busqueda"
+                  className={styles.busqueda}
               name="name"
               value={perroNuevo.name}
               onChange={selectedChange}
-              placeholder=""
+              placeholder="Nombre"
             />
-            {errors.name && <p className="error">{errors.name}</p>}
+            {errors.name && <p className={styles.error}>{errors.name}</p>}
           </div>
           <div>
-            <p className="caracteristicas">Temperamentos:</p>
+            <p className={styles.caracteristicas}> Escoge los Temperamentos:</p>
             <div>
               {temperaments.map((temperament) => (
                 <div key={temperament.id}>
                   <input
+                    className={styles.checkbox}
                     type="checkbox"
                     name="temperaments"
                     id={temperament.id}
@@ -145,56 +152,58 @@ function DogAgregar() {
             </div>
           </div>
           <div>
-            <p className="caracteristicas">Altura:</p>
+            <p className={styles.caracteristicas}>Altura:</p>
             <input
-              className="input-de-busqueda"
+              className={styles.busqueda}
               name="altura"
               value={perroNuevo.altura}
               onChange={selectedChange}
               placeholder="Cm"
             />{" "}
-            Cm.
-            {errors.altura && <p className="error">{errors.altura}</p>}
+            {errors.altura && <p className={styles.error}>{errors.altura}</p>}
           </div>
           <div>
-            <p className="caracteristicas">Peso:</p>
+            <p className={styles.caracteristicas}>Peso:</p>
             <input
-              className="input-de-busqueda"
+              className={styles.busqueda}
               name="peso"
               value={perroNuevo.peso}
               onChange={selectedChange}
               placeholder="Kg"
             />{" "}
-            Kg.
-            {errors.peso && <p className="error">{errors.peso}</p>}
+            {errors.peso && <p className={styles.error}>{errors.peso}</p>}
           </div>
           <div>
-            <p className="caracteristicas">Años de vida:</p>
+            <p className={styles.caracteristicas}>Años de vida:</p>
             <input
-              className="input-de-busqueda"
+              className={styles.busqueda}
               name="años_vida"
               value={perroNuevo.años_vida}
               onChange={selectedChange}
               placeholder=""
             />
-            {errors.años_vida && <p className="error">{errors.años_vida}</p>}
+            {errors.años_vida && (
+              <p className={styles.error}>{errors.años_vida}</p>
+            )}
           </div>
           <div>
-            <p className="caracteristicas">URL de la imagen:</p>
+            <p className={styles.caracteristicas}>URL de la imagen:</p>
             <input
-              className="input-de-busqueda"
+              className={styles.busqueda}
               name="imagenURL"
               value={perroNuevo.imagenURL}
               onChange={selectedChange}
               placeholder="Url valida"
             />
-            {errors.imagenURL && <p className="error">{errors.imagenURL}</p>}
+            {errors.imagenURL && (
+              <p className={styles.error}>{errors.imagenURL}</p>
+            )}
           </div>
-          <div className="botones-container ">
-            <button className="boton-perro" type="submit">
+          </div>
+          <div className={styles.botones.container }>
+            <button className={styles.boton } type="submit">
               <FontAwesomeIcon icon={faPaw} /> Agregar perro
             </button>
-          </div>
         </div>
       </form>
     </div>

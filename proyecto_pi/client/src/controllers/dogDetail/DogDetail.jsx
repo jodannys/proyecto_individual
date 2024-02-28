@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./DogDetail.css";
+import styles from "./DogDetail.module.css";
 import { useSelector } from "react-redux";
 
 function DogDetail() {
@@ -13,7 +13,7 @@ function DogDetail() {
     años_vida: "",
     altura: "",
     imagen: "",
-    imagenUrl:"",
+    imagenUrl: "",
   });
   let { id } = useParams();
 
@@ -23,7 +23,7 @@ function DogDetail() {
 
   const traerDetalles = () => {
     axios
-      .get(`http://localhost:3001/dogs/${id}`)
+      .get(`${process.env.SERVER_URL}/dogs/${id}`)
       .then((res) => {
         console.log(res);
         setDogDetail({
@@ -32,7 +32,7 @@ function DogDetail() {
           altura: res.data.height?.metric || res.data.altura || "desconocida",
           peso: res.data.weight?.metric || res.data.peso || "desconocida",
           años_vida: res.data.life_span || res.data.años_vida || "desconocida",
-          imagen: `https://cdn2.thedogapi.com/images/${res.data.reference_image_id}.jpg`,
+          imagen: `${process.env.URL_API}/images/${res.data.reference_image_id}.jpg`,
           imagenUrl: res.data.imagenURL,
         });
       })
@@ -42,32 +42,34 @@ function DogDetail() {
   };
 
   return (
-    <div className="detail">
+    <div className={styles.detail}>
       <img
-        className="img"
+        className={styles.img}
         src={dogDetail.imagen}
         alt={`Imagen de ${dogDetail.name}`}
       />
 
-      <div className="descripcion-perro">
-        <h2 className="nombre-id">
+      <div className={styles.descripcion.perro}>
+        <h2 className={styles.nombre.id}>
           {" "}
           {`Detalles de ${dogDetail.name} Id: ${id}`}
         </h2>
         <div>
           {" "}
-          <p className="descripcion">¡Hola! soy un adorable {dogDetail.name}</p>
-          <p className="descripcion">
+          <p className={styles.descripcion}>
+            ¡Hola! soy un adorable {dogDetail.name}
+          </p>
+          <p className={styles.descripcion}>
             Mis temperamentos son una mezcla de <br /> {dogDetail.temperament}
           </p>
-          <p className="descripcion">
+          <p className={styles.descripcion}>
             En cuanto a mi tamaño, <br />
             suelo medir entre {dogDetail.altura} centímetros de altura.
           </p>
-          <p className="descripcion">
+          <p className={styles.descripcion}>
             Mi peso oscila típicamente entre {dogDetail.peso} kilogramos.
           </p>
-          <p className="descripcion">
+          <p className={styles.descripcion}>
             Y lo mejor de todo es que tengo una esperanza <br />
             de vida promedio de {dogDetail.años_vida}
           </p>
