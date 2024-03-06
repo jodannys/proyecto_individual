@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 
-
 module.exports = (sequelize) => {
   const Dog = sequelize.define('Dog', {
     id: {
@@ -21,12 +20,12 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     altura: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.STRING, 
+      allowNull: true,
     },
     peso: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.STRING, 
+      allowNull: true,
     },
     años_vida: {
       type: DataTypes.INTEGER,
@@ -34,8 +33,7 @@ module.exports = (sequelize) => {
     },
   }, {
     timestamps: true
-  })
-
+  });
 
   return Dog;
 };

@@ -1,14 +1,11 @@
 const express = require("express");
 const {
-  postCreatedog,
-  postCreatetemperament,
+  createDog 
+ 
 } = require("../handlers/postHandlers");
 
 const postRouter = express.Router();
 // ruta d ecrear perros 
-postRouter.post("/createdog", postCreatedog);
-
-//ruta para crear temperamentos 
-postRouter.post("/createtemperament", postCreatetemperament);
+postRouter.post("/createdog",createDog );
 
 module.exports = postRouter;

@@ -19,8 +19,8 @@ const FiltrosBuscar = ({
   temperamentChange,
   razaChange,
   resetFilters,
-  fetchFromApi,
-  fetchFromDatabase,
+  addFromApi,
+  addFromDatabase,
 }) => {
   const handleReset = () => {
     setPeso("");
@@ -33,18 +33,18 @@ const FiltrosBuscar = ({
   const handleFetchFromApi = () => {
     setOrigenSelected("api");
     console.log("Origen seleccionado: API");
-    fetchFromApi();
+    addFromApi();
   };
 
   const handleFetchFromDatabase = () => {
     setOrigenSelected("database");
     console.log("Origen seleccionado: Base de datos");
-    fetchFromDatabase();
+    addFromDatabase();
   };
 
   return (
-    <div className={styles.filtrado}>
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.filtrado}>
         <div className={styles.select}>
           <p>Ordenar por peso</p>
           <select
@@ -52,9 +52,9 @@ const FiltrosBuscar = ({
             value={peso}
             onChange={pesoSelectedChange}
           >
-            <option value="">Peso</option>
-            <option value="liviano-pesado">Peso de mayor a menor</option>
-            <option value="pesado-liviano">Peso de menor a mayor</option>
+            <option value="">Selecciona...</option>
+            <option value="liviano-pesado">De liviano a pesado</option>
+            <option value="pesado-liviano">De pesado a liviano</option>
           </select>
         </div>
         <div className={styles.select}>
@@ -64,7 +64,7 @@ const FiltrosBuscar = ({
             value={orderAlfabet}
             onChange={alfabetSelectedChange}
           >
-            <option value="">A-Z</option>
+            <option value="">Selecciona...</option>
             <option value="asc-desc">Ascendente</option>
             <option value="desc-asc">Descendente</option>
           </select>
@@ -114,11 +114,10 @@ const FiltrosBuscar = ({
             value={origenSelected}
             onChange={(e) => {
               setOrigenSelected(e.target.value);
-              console.log("Origen seleccionado:", e.target.value);
               if (e.target.value === "api") {
-                fetchFromApi();
+                handleFetchFromApi();
               } else if (e.target.value === "database") {
-                fetchFromDatabase();
+                handleFetchFromDatabase();
               }
             }}
           >
@@ -129,8 +128,9 @@ const FiltrosBuscar = ({
         </div>
 
         <button className={styles.reset} onClick={handleReset}>
-          Resetear <br />
-          filtros
+          <p className={styles.texto}>
+            Resetear <br /> filtros
+          </p>
         </button>
       </div>
     </div>

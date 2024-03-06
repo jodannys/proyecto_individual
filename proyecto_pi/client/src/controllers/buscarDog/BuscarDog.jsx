@@ -1,156 +1,121 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import DogCard from "../dogCard/DogCard";
 import CardBd from "../cardBD/CardBd";
 import DogPaginacion from "../dogPaginacion/DogPaginacion";
 import FiltrosBuscar from "../filtrosDog/FiltrosDog";
 import styles from "./BuscarDog.module.css";
-const URL = process.env.SERVER_URL;
+import {
+  addTemperaments,
+  addDogs,
+  addRazas,
+  addFromApi,
+  addFromDatabase,
+  ordenarAscendenteDescendente,
+  ordenarDescendenteAscendente,
+  searchDogsByName,
+  ordenarLivianoPesado,
+  ordenarPesadoLiviano,
+  resetFilters,
+} from "../../redux/actions";
 
 function BuscarDog() {
   const dispatch = useDispatch();
-  const dogs = useSelector((state) => state.dogs);
+  const dogsFromApi = useSelector((state) => state.dogsFromApi);
+  const dogsFromDatabase = useSelector((state) => state.dogsFromDatabase);
   const temperaments = useSelector((state) => state.temperaments);
   const razas = useSelector((state) => state.razas);
+  const searchResults = useSelector((state) => state.searchResults);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPorPag] = useState(8);
   const [peso, setPeso] = useState("");
   const [orderAlfabet, setOrderAlfabet] = useState("");
   const [temperamentSelected, setTemperamentSelected] = useState("");
   const [razaSelected, setRazaSelected] = useState("");
-  const [origenSelected, setOrigenSelected] = useState(""); // Agregar origenSelected al estado local
-
-  // Función para resetear los filtros
-  const resetFilters = () => {
-    setPeso("");
-    setOrderAlfabet("");
-    setTemperamentSelected("");
-    setRazaSelected("");
-  };
+  const [origenSelected, setOrigenSelected] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${URL}/temperamentos`)
-      .then((res) => {
-        dispatch({
-          type: "ADD_TEMPERAMENTS",
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axios
-      .get(`${URL}/dogs`)
-      .then((res) => {
-        dispatch({
-          type: "ADD_DOGS",
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axios
-      .get(`${URL}/dogs`)
-      .then((res) => {
-        dispatch({
-          type: "ADD_RAZAS",
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log("Fetching initial data...");
+    dispatch(addTemperaments());
+    dispatch(addFromApi());
+    dispatch(addDogs());
+    dispatch(addRazas());
+    dispatch(addFromDatabase());
   }, [dispatch]);
 
-  const pesoSelectedChange = (e) => {
-    if (e.target.value === "liviano-pesado") {
-      dispatch({
-        type: "ordenar-pesado-liviano",
-      });
-    } else if (e.target.value === "pesado-liviano") {
-      dispatch({
-        type: "ordenar-liviano-pesado",
-      });
-    }
-    setPeso(e.target.value);
-    // Reinicia el valor del otro filtro seleccionado
+  useEffect(() => {
+    console.log(
+      "Datos del perro recibidos del estado de Redux:",
+      searchResults
+    );
+  }, [searchResults]);
+
+  const handleResetFilters = () => {
+    setPeso("");
     setOrderAlfabet("");
     setTemperamentSelected("");
     setRazaSelected("");
+    setOrigenSelected("");
+    setSearchTerm("");
+    setCurrentPage(1);
+    dispatch(resetFilters());
   };
 
-  const alfabetSelectedChange = (e) => {
-    if (e.target.value === "asc-desc") {
-      dispatch({
-        type: "ordenar-asc-desc",
-      });
-    } else if (e.target.value === "desc-asc") {
-      dispatch({
-        type: "ordenar-desc-asc",
-      });
+  const handleSearchByName = () => {
+    setCurrentPage(1);
+    dispatch(searchDogsByName(searchTerm));
+  };
+
+  const handlePesoSelectedChange = (e) => {
+    const selectedValue = e.target.value;
+    console.log("Estado de peso después de la selección:", selectedValue);
+    setPeso(selectedValue);
+    setOrderAlfabet("");
+    setTemperamentSelected("");
+    setRazaSelected("");
+    setCurrentPage(1);
+  };
+
+  const handleAlfabetSelectedChange = (e) => {
+    const selectedValue = e.target.value;
+    if (selectedValue === "asc-desc") {
+      dispatch(ordenarAscendenteDescendente());
+    } else if (selectedValue === "desc-asc") {
+      dispatch(ordenarDescendenteAscendente());
     }
-    setOrderAlfabet(e.target.value);
-    // Reinicia el valor del otro filtro seleccionado
+    setOrderAlfabet(selectedValue);
     setPeso("");
     setTemperamentSelected("");
     setRazaSelected("");
+    setCurrentPage(1);
   };
 
-  const temperamentChange = (e) => {
+  const handleOrigenChange = (e) => {
+    setOrigenSelected(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleTemperamentChange = (e) => {
     setTemperamentSelected(e.target.value);
-    // Reinicia el valor del otro filtro seleccionado
     setPeso("");
     setOrderAlfabet("");
     setRazaSelected("");
+    setCurrentPage(1);
   };
 
-  const razaChange = (e) => {
+  const handleRazaChange = (e) => {
     setRazaSelected(e.target.value);
-    // Reinicia el valor del otro filtro seleccionado
     setPeso("");
     setOrderAlfabet("");
     setTemperamentSelected("");
-  };
-
-  const fetchFromApi = async () => {
-    try {
-      const response = await axios.get(`${URL}/dogs`);
-      dispatch({
-        type: "ADD_DOGS",
-        payload: response.data,
-      });
-    } catch (error) {
-      console.error("Error al obtener los perros de la API:", error);
-    }
-  };
-
-  const fetchFromDatabase = async () => {
-    try {
-      const response = await axios.get(`${URL}/perros`);
-      console.log("Datos de la base de datos:", response.data);
-      dispatch({
-        type: "ADD_DOGS",
-        payload: response.data,
-      });
-    } catch (error) {
-      console.error(
-        "Error al obtener los perros desde la base de datos:",
-        error
-      );
-    }
+    setCurrentPage(1);
   };
 
   const renderDogCards = () => {
-    // Filtrar perros según los valores seleccionados en los filtros
-    let filteredDogs = dogs;
+    let filteredDogs = origenSelected === "database" ? dogsFromDatabase : dogsFromApi;
 
     if (temperamentSelected) {
-      // Si temperamentSelected no es un array, conviértelo en uno
       const selectedTemperaments = Array.isArray(temperamentSelected)
         ? temperamentSelected
         : [temperamentSelected];
@@ -164,12 +129,29 @@ function BuscarDog() {
       filteredDogs = filteredDogs.filter((dog) => dog.name === razaSelected);
     }
 
+    if (peso === "liviano-pesado") {
+      filteredDogs = filteredDogs.filter(dog => dog.weight && dog.weight.metric);
+      filteredDogs.sort((a, b) => parseFloat(a.weight.metric) - parseFloat(b.weight.metric));
+    } else if (peso === "pesado-liviano") {
+      filteredDogs = filteredDogs.filter(dog => dog.weight && dog.weight.metric);
+      filteredDogs.sort((a, b) => parseFloat(b.weight.metric) - parseFloat(a.weight.metric));
+    }
+    
+
+    if (orderAlfabet === "asc-desc") {
+      filteredDogs = filteredDogs.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (orderAlfabet === "desc-asc") {
+      filteredDogs = filteredDogs.sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    const dogsToRender = searchResults.length > 0 ? searchResults : filteredDogs;
+
     const indexOfLastItem = currentPage * itemsPorPag;
     const indexOfFirstItem = indexOfLastItem - itemsPorPag;
-    const currentDogs = filteredDogs.slice(indexOfFirstItem, indexOfLastItem);
+    const currentDogs = dogsToRender.slice(indexOfFirstItem, indexOfLastItem);
 
     return currentDogs.map((dog) =>
-      dog.imagenURL ? (
+      origenSelected === "database" ? (
         <CardBd
           key={dog.id}
           id={dog.id}
@@ -193,7 +175,35 @@ function BuscarDog() {
     );
   };
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const totalFilteredDogs = searchResults.length > 0
+    ? searchResults.length
+    : (origenSelected === "database" ? dogsFromDatabase : dogsFromApi)
+        .filter((dog) => {
+            if (temperamentSelected && razaSelected) {
+                return (
+                    dog.temperament?.includes(temperamentSelected) &&
+                    dog.name === razaSelected
+                );
+            } else if (temperamentSelected) {
+                return dog.temperament?.includes(temperamentSelected);
+            } else if (razaSelected) {
+                return dog.name === razaSelected;
+            }
+            return true;
+        }).length;
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    localStorage.setItem("currentPage", pageNumber);
+  };
+
+  const handleOrdenarLivianoPesado = () => {
+    dispatch(ordenarLivianoPesado());
+  };
+
+  const handleOrdenarPesadoLiviano = () => {
+    dispatch(ordenarPesadoLiviano());
+  };
 
   return (
     <div className={styles.busqueda}>
@@ -210,19 +220,24 @@ function BuscarDog() {
         setOrigenSelected={setOrigenSelected}
         temperaments={temperaments}
         razas={razas}
-        pesoSelectedChange={pesoSelectedChange}
-        alfabetSelectedChange={alfabetSelectedChange}
-        temperamentChange={temperamentChange}
-        razaChange={razaChange}
-        resetFilters={resetFilters}
-        fetchFromApi={fetchFromApi}
-        fetchFromDatabase={fetchFromDatabase}
+        pesoSelectedChange={handlePesoSelectedChange}
+        alfabetSelectedChange={handleAlfabetSelectedChange}
+        temperamentChange={handleTemperamentChange}
+        resetFilters={handleResetFilters}
+        razaChange={handleRazaChange}
+        handleOrigenChange={handleOrigenChange}
+        setSearchTerm={setSearchTerm} 
+        handleSearchByName={handleSearchByName} 
+        handleOrdenarLivianoPesado={handleOrdenarLivianoPesado}
+        handleOrdenarPesadoLiviano={handleOrdenarPesadoLiviano}
       />
-      <div>{dogs.length > 0 && renderDogCards()}</div>
+
+      <div>{renderDogCards()}</div>
       <div>
         <DogPaginacion
           itemsPorPag={itemsPorPag}
-          totalPosts={dogs.length}
+          currentPage={currentPage}
+          totalPosts={totalFilteredDogs}
           paginate={paginate}
         />
       </div>
@@ -231,3 +246,4 @@ function BuscarDog() {
 }
 
 export default BuscarDog;
+

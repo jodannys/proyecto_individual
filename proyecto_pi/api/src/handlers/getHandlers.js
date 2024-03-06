@@ -35,8 +35,10 @@ const getDetail = async function (req, res) {
 
     if (!detallesDog) {
       console.log("ID del perro:", req.params.id);
-      const response = await axios.get(`${process.env.API_URL}/${req.params.id}`);
-      
+      const response = await axios.get(
+        `${process.env.API_URL}/${req.params.id}`
+      );
+
       if (response.data.error) {
         console.log(response.data.error);
         return res.status(404).json({ error: "Perro no encontrado en la API" });
@@ -92,7 +94,6 @@ const getSearch = async (req, res) => {
     res.status(500).send("Error interno del servidor");
   }
 };
-
 const getTemperamentosBd = async (req, res) => {
   try {
     const { id } = req.params;
@@ -111,39 +112,39 @@ const getTemperamentosBd = async (req, res) => {
   }
 };
 
-// Obtener temperamentos
-const getTemperamentos = async (req, res) => {
+const getTemperamentos = 
+async (req, res) => {
   try {
-    let traertemperamentos = await Temperament.findAll();
-    traertemperamentos = JSON.stringify(traertemperamentos, null, 2);
-    traertemperamentos = JSON.parse(traertemperamentos);
-    if (traertemperamentos.length !== 0) {
-      res.send(traertemperamentos);
+    const temperamentosDB = await Temperament.findAll();
+
+    if (temperamentosDB.length !== 0) {
+      res.send(temperamentosDB);
     } else {
       const response = await axios.get(process.env.API_URL);
-      let temperamentosfinal = new Set(); // Utiliza un Set para almacenar los temperamentos únicos
-      let temperamentos = response.data.map((el) => el.temperament);
-      let nuevostemperamentos = temperamentos
-        .map((el) => el && el.split(","))
-        .flat();
-      nuevostemperamentos.forEach((el) => {
-        temperamentosfinal.add(el); // Agrega el temperamento al Set
+
+      let temperamentosSet = new Set();
+
+      response.data.forEach((el) => {
+        if (el.temperament) {
+          el.temperament.split(",").forEach((temperamento) => {
+            temperamentosSet.add(temperamento.trim());
+          });
+        }
       });
-      // Limita el número de temperamentos guardados
-      const temperamentosGuardados = Array.from(temperamentosfinal).slice(
-        9,
-        19
-      );
-   
-      const temperamentosConId = temperamentosGuardados.map((temperamento, index) => ({
-        id: index + 1, // Genera un id único para cada temperamento
-        name: temperamento,
+
+      // Convertir el Set a un array de temperamentos únicos
+      const temperamentosUnicos = Array.from(temperamentosSet);
+
+      const temperamentosConId = temperamentosUnicos.map(temperamento => ({
+        name: temperamento
       }));
-      for (const temperamento of temperamentosConId) {
-        await Temperament.create({
-          name: temperamento.name,
-        });
-      }
+      
+
+      // Guardar los temperamentos en la base de datos local
+      await Promise.all(temperamentosConId.map(async (temperamento) => {
+        await Temperament.create(temperamento);
+      }));
+
       res.send(temperamentosConId);
     }
   } catch (error) {
@@ -152,7 +153,6 @@ const getTemperamentos = async (req, res) => {
   }
 };
 
-// Ruta para buscar perros en la base de datos
 const getsearchDogs = async (req, res) => {
   try {
     const perrosFromDB = await Dog.findAll({
@@ -181,6 +181,5 @@ module.exports = {
   getDogs,
   getDetail,
   getsearchDogs,
-  getTemperamentosBd 
-  
+  getTemperamentosBd,
 };

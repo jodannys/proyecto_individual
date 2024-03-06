@@ -1,11 +1,14 @@
+
+
 const initialState = {
   dogs: [],
   temperaments: [],
   razas: [],
   dogsFromApi: [],
   dogsFromDatabase: [],
+  searchResults: [],
 };
-// Agrega los temperamentos al estado
+
 function Reducer(state = initialState, action) {
   switch (action.type) {
     case "ADD_TEMPERAMENTS":
@@ -14,56 +17,57 @@ function Reducer(state = initialState, action) {
         temperaments: action.payload,
       };
 
-    //Filtra los perros en el estado por un temperamento específico.
     case "FILTRAR_POR_TEMPERAMENTO":
       return {
         ...state,
-        dogs: state.dogs.filter((dog) =>
-          dog.temperament.includes(action.payload)
+        dogs: state.dogsFromDatabase.filter(
+          (dog) => dog.temperament && dog.temperament.includes(action.payload)
         ),
       };
 
-    //Agrega las razas de perros al estado de la aplicación.
+    case "AGREGAR_DOG":
+      return {
+        ...state,
+        dogs: [...state.dogs, action.payload],
+      };
+
+    // Agrega las razas de perros al estado de la aplicación.
     case "ADD_RAZAS":
       return {
         ...state,
         razas: action.payload,
       };
-    // Actualiza la lista de perros con los resultados de la búsqueda
-    case "SEARCH_DOGS":
+    //Filtra los perros en el estado por una raza específica.
+    case "FILTRAR_POR_RAZA":
       return {
         ...state,
-        dogs: action.payload,
+        dogs: state.dogsFromDatabase.filter(
+          (dog) => dog.raza === action.payload
+        ),
       };
-
-    // Agrega las razas de perros al estado
+  
+      case "SEARCH_DOGS_BY_NAME": // Corregir el tipo de acción
+      return {
+        ...state,
+        searchResults: action.payload, // Actualizar los resultados de la búsqueda por nombre
+      };
     case "ADD_DOGS":
       return {
         ...state,
         dogs: action.payload,
       };
-    // Ordena los perros de manera ascendente por peso
-    case "ordenar-liviano-pesado":
+      case 'ORDENAR_LIVIANO_PESADO':
       return {
         ...state,
-        dogs: state.dogs.sort(
-          (a, b) =>
-            parseInt(a.weight.metric.slice(0, 3)) -
-            parseInt(b.weight.metric.slice(0, 3))
-        ),
+        dogsFromApi: state.dogsFromApi.slice().sort((a, b) => parseFloat(a.weight.metric) - parseFloat(b.weight.metric))
       };
-    // Ordena los perros de manera descendente por peso
-    case "ordenar-pesado-liviano":
+    case 'ORDENAR_PESADO_LIVIANO':
       return {
         ...state,
-        dogs: state.dogs.sort(
-          (a, b) =>
-            parseInt(b.weight.metric.slice(0, 3)) -
-            parseInt(a.weight.metric.slice(0, 3))
-        ),
+        dogsFromApi: state.dogsFromApi.slice().sort((a, b) => parseFloat(b.weight.metric) - parseFloat(a.weight.metric))
       };
-    // Ordena los perros alfabéticamente de A-Z
-    case "ordenar-asc-desc":
+
+    case "ORDENAR_ASCENDENTE_DESCENDENTE":
       return {
         ...state,
         dogs: state.dogs.sort((a, b) => {
@@ -76,8 +80,8 @@ function Reducer(state = initialState, action) {
           return 0;
         }),
       };
-    // Ordena los perros alfabéticamente de Z-A
-    case "ordenar-desc-asc":
+
+    case "ORDENAR_DESCENDENTE_ASCENDENTE":
       return {
         ...state,
         dogs: state.dogs.sort((a, b) => {
@@ -90,21 +94,26 @@ function Reducer(state = initialState, action) {
           return 0;
         }),
       };
-    //Agrega perros obtenidos de una API externa al estado de la aplicación.
-    case "ADD_DOGS_FROM_API":
+      case "ADD_DOGS_FROM_API":
+  return {
+    ...state,
+    dogsFromApi: action.payload,
+  };
+
+case "ADD_DOGS_FROM_DATABASE":
+  return {
+    ...state,
+    dogsFromDatabase: action.payload,
+  };
+
+  case "RESET_FILTERS":
       return {
         ...state,
-        dogsFromApi: action.payload,
-      };
-    //Agrega perros obtenidos de la base de datos al estado de la aplicación.
-    case "ADD_DOGS_FROM_DATABASE":
-      return {
-        ...state,
-        dogsFromDatabase: action.payload,
-      };
-    // Reinicia todos los filtros al estado inicial
-    case "RESET_FILTERS":
-      return initialState;
+        dogs: [],
+        searchResults: [],
+        peso: "",
+      }
+
     default:
       return state;
   }

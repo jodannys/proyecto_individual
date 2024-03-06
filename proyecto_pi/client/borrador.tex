@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,21 +20,9 @@ function DogAgregar() {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleTemperamentChange = (e) => {
-    const value = e.target.value;
-    setSelectedTemperaments([...selectedTemperaments, value]);
-  };
-  const handleRemoveTemperament = (temperamentId) => {
-    const updatedTemperaments = selectedTemperaments.filter(
-      (temp) => temp !== temperamentId
-    );
-    setSelectedTemperaments(updatedTemperaments);
-  };
-
   useEffect(() => {
     const fetchTemperaments = async () => {
       try {
-        // Obtener temperamentos de la API
         const response = await axios.get(`http://localhost:3001/temperamentos`);
         const apiTemperaments = response.data;
         setTemperaments(apiTemperaments);
@@ -46,10 +32,20 @@ function DogAgregar() {
     };
     fetchTemperaments();
   }, []);
+
   const selectedChange = (e) => {
     const { name, value } = e.target;
     setPerroNuevo({ ...perroNuevo, [name]: value });
     setErrors({ ...errors, [name]: "" });
+  };
+
+  const handleTemperamentChange = (e) => {
+    const value = e.target.value;
+    setSelectedTemperaments([...selectedTemperaments, value]);
+  };
+
+  const handleRemoveTemperament = (temperament) => {
+    setSelectedTemperaments(selectedTemperaments.filter((temp) => temp !== temperament));
   };
 
   const handleSubmit = async (e) => {
@@ -70,20 +66,13 @@ function DogAgregar() {
       temperaments: selectedTemperaments,
     };
 
-    console.log("Datos del formulario:", formattedData);
-
     try {
-      const response = await axios.post(
-        `http://localhost:3001/createdog`,
-        formattedData
-      );
+      const response = await axios.post(`http://localhost:3001/createdog`, formattedData);
       console.log("Respuesta del servidor:", response.data);
       setSuccessMessage("¡Perro creado correctamente!");
     } catch (error) {
       console.error("Error al agregar nuevo perro:", error);
-      alert(
-        "No se pudo crear el perro. Por favor, inténtalo de nuevo más tarde."
-      );
+      alert("No se pudo crear el perro. Por favor, inténtalo de nuevo más tarde.");
     }
   };
 
@@ -136,23 +125,22 @@ function DogAgregar() {
   };
 
   const isValidURL = (url) => {
-    // Expresión regular para validar la URL
     const urlPattern =
       /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;
     return urlPattern.test(url);
   };
-
+  
   return (
     <div className={styles.container}>
       <p className={styles.titulo}>
         <br />
-         ¡Crea nuevos perros! 
+        ¡Crea nuevos perros!
       </p>
       <form className={styles.formulario} onSubmit={handleSubmit}>
         <div className={styles.descripcion}></div>
+        {successMessage && <p className={styles.message}>{successMessage}</p>}
         <div className={styles.refe}>
           <p className={styles.caracteristicas}>Nombre de la raza:</p>
-        
           <input
             className={styles.busqueda}
             name="name"
@@ -162,46 +150,42 @@ function DogAgregar() {
           />
           {errors.name && <p className={styles.error}>{errors.name}</p>}
         </div>
-       
         <div>
-          <p className={styles.caracteristicas}>Escoge los Temperamentos:</p>
-         
-          <select
-            className={styles.selecttemperamentos}
-            multiple
-            value={selectedTemperaments}
-            onChange={handleTemperamentChange}
-            >
-            {temperaments.map((temperament) => (
-              <option key={temperament.id} value={temperament.id}>
-                {temperament.name}
-              </option>
-            ))}
-          </select>
-          <div className={styles.selectedTemperamentsContainer}>
-            <p className={styles.caracteristicas}>
-              Temperamentos seleccionados:
-            </p>
-            <ul className={styles.temperamentList}>
-              {selectedTemperaments.map((temp) => (
-                <li key={temp}>
-                  {temperaments.find((t) => t.id === temp)?.name}
-                  <button
-                    className={styles.butonx}
-                    type="button"
-                    onClick={() => handleRemoveTemperament(temp)}
-                    
-
-                  >
-                    X
-                  </button>
-                </li>
+          <p className={styles.caracteristicas}>Escoge los Temperamentos:</p>{" "}
+          <div>
+            <select
+               className={styles.input}
+               value={selectedTemperaments} // Aquí deberías usar el estado que contiene los temperamentos seleccionados
+               onChange={handleTemperamentChange}
+               multiple // Establece múltiple en true para permitir selección múltiple
+             >
+              <option value="">Selecciona un temperamento</option>
+              {temperaments.map((temperament) => (
+                <option key={temperament.id} value={temperament.name}>
+                  {temperament.name}
+                </option>
               ))}
-            </ul>
+            </select>
           </div>
         </div>
-
         <div>
+          <p>Temperamentos seleccionados:</p>
+          <ul>
+            {selectedTemperaments.map((temperament, index) => (
+              <li key={index}>
+                {temperament}
+                <button
+                  type="button"
+                  onClick={() => handleRemoveTemperament(temperament)}
+                >
+                  X
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+         
           <p className={styles.caracteristicas}>Altura mínima:</p>
           <input
             className={styles.busqueda}
@@ -225,7 +209,7 @@ function DogAgregar() {
           />
           {errors.altura_maxima && (
             <p className={styles.error}>{errors.altura_maxima}</p>
-            )}
+          )}
         </div>
         <div>
           <p className={styles.caracteristicas}>Peso mínimo:</p>
@@ -253,7 +237,6 @@ function DogAgregar() {
             <p className={styles.error}>{errors.peso_maximo}</p>
           )}
         </div>
-
         <div>
           <p className={styles.caracteristicas}>Años de vida:</p>
           <input
@@ -286,8 +269,8 @@ function DogAgregar() {
           </button>
         </div>
       </form>
-      {successMessage && <p className={styles.message}>{successMessage}</p>}
     </div>
   );
 }
+
 export default DogAgregar;

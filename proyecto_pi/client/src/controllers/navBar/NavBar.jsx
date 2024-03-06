@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
+import DogCard from "../dogCard/DogCard"; // Importa tu componente de tarjeta de perro aquí/
 import styles from "./NavBar.module.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [searchResults, setSearchResults] = useState([]);
 
   const resetPage = () => {
+    setSearchResults([]); // Reinicia los resultados de la búsqueda al cambiar de página
     navigate("/buscar");
   };
 
@@ -28,15 +31,17 @@ const Navbar = () => {
                 <span className={styles.icono3}>Crear Perro</span>
               </Link>
             </div>
-            <div className={styles.navbar}>
-              <Link to="/temperamento" className={styles.link}>
-                <span className={styles.icono2}>Crear temperamento</span>
-                <p> </p>
-              </Link>
-            </div>
           </li>
 
-          <SearchBar />
+          <SearchBar setSearchResults={setSearchResults} />
+
+          {searchResults.length > 0 && (
+            <div className={styles.searchResults}>
+              {searchResults.map((dog) => (
+                <DogCard key={dog.id} dog={dog} /> // Utiliza tu componente de tarjeta de perro para mostrar cada perro encontrado
+              ))}
+            </div>
+          )}
 
           <button className={styles.link} onClick={handleLogout}>
             <span className={styles.icono4}>Salir</span>
