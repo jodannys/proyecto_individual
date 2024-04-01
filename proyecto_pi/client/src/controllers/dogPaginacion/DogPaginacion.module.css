@@ -1,0 +1,39 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1px;
+  box-shadow: 0px -3px 10px rgba(11, 11, 11, 0.1);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 10;
+  margin: 10px 0;
+}
+
+.page {
+  margin: 0 5px;
+}
+
+.link {
+  text-decoration: none;
+  padding: 5px 10px;
+  color: #ffffff;
+  border: 1px solid #fdfdfd;
+  background-color: #8a8282;
+  border-radius: 5px;
+}
+
+.link:hover {
+  background-color: #1cedae;
+}
+
+.link:focus {
+  background-color: #1cedae;
+  outline: none;
+  box-shadow: 0 0 0 4px #020202;
+}

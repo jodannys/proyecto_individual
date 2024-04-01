@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Share Tech Mono", monospace;
+  margin: 1px auto;
+  position: relative;
+}
+
+.inputs {
+  flex: 1;
+  border-radius: 5px;
+  font-size: 1.2vw;
+  padding: 5px 15px;
+  width: auto;
+}
+.inputs::-webkit-search-cancel-button {
+  display: none;
+}
+.inputs:focus {
+  border: 3px solid;
+  outline: none;
+  box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+}
+
+@media screen and (max-width: 768px) {
+  .inputs {
+    width: 100%;
+    font-size: 20px;
+    padding: 10px;
+  }
+}
+
+.search {
+  color: #ff0000;
+  padding: 5px 15px;
+  cursor: pointer;
+  background-color: rgb(3, 15, 249);
+  font-size: 25px;
+  border-radius: 20%;
+  border: none;
+  outline: none;
+  margin-left: 20px;
+}
+.search:hover {
+  background-color: rgb(247, 246, 246);
+}
+@media screen and (max-width: 768px) {
+  .search {
+    font-size: 15px;
+  }
+}

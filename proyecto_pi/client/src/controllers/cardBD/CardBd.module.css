@@ -1,0 +1,93 @@
+.container {
+  margin-left: 40px;
+  display: flex;
+  max-height: 500px;
+  gap: 1rem;
+  padding: 12px;
+  margin-top: 55px;
+  margin-bottom: 4rem;
+  width: 300px;
+  box-shadow: 3px 0px 20px rgba(163, 163, 163, 1);
+  background-color: #c4c1a75d;
+  border-radius: 10px;
+}
+.caja {
+  display: inline-block;
+  flex-wrap: wrap;
+}
+
+.content {
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  word-wrap: break-word;
+}
+
+.container:hover {
+  background-color: #1cedae;
+}
+
+.titulo-card {
+  font-size: 19px;
+  margin: 0;
+  padding-top: 10px;
+  color: black;
+  overflow-wrap: break-word;
+}
+
+.img {
+  height: 200px;
+  width: 280px;
+  margin: 10px;
+  padding-top: 3px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+}
+
+.link {
+  color: #453d3d;
+}
+
+.temperamento {
+  font-size: 18px;
+  color: rgb(92, 92, 92);
+  overflow-wrap: break-word;
+  margin-top: 20px;
+  height: 200px;
+  width: 280px;
+  margin-bottom: -10%;
+}
+.name {
+  font-size: 22px;
+  color: #453d3d;
+  overflow-wrap: break-word;
+  height: 30px;
+  width: 280px;
+  margin-top: 20px;
+}
+
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+.text {
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  width: 280px;
+}
+.weight {
+  font-size: 15px;
+  margin-top: -60px;
+  text-align: center;
+  color: rgb(52, 51, 53);
+  justify-content: center;
+}
+
+.no.disponible {
+  font-size: 15px;
+  margin-top: -90px;
+  text-align: center;
+  color: rgb(250, 3, 3);
+}
