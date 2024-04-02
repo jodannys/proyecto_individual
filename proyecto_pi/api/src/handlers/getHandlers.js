@@ -3,7 +3,10 @@ const { Dog, Temperament } = require("../db");
 
 // Obtener un listado de las primeras 8 razas de perro
 const getDogs1 = async (req, res) => {
+<<<<<<< HEAD
   //
+=======
+>>>>>>> 998cafac74df20a379d78e97b3c796f141f8d62f
   try {
     const response = await axios.get(process.env.API_URL);
     const nuevoarray = response.data.slice(0, 8);
